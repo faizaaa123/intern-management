@@ -1,6 +1,18 @@
 # Intern Management App
 
-## Project Brief: Intern Management App - Attendance Tracker
+### Getting Started
+
+First, run the development server:
+
+```bash
+npm run dev
+```
+
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+
+You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+
+## **Project Brief: Intern Management App - Attendance Tracker**
 
 Overview:
 The Intern Management App - Attendance Tracker is designed to efficiently track the presence of interns in the office and manage their leave statuses (sick leave and holiday). The primary goal is to provide a simple and user-friendly interface for supervisors to monitor intern attendance and leave records.
@@ -67,4 +79,11 @@ Key Features:
 
 Click [here](https://www.figma.com/file/Naemkvc1lwR5FQzACTw3y7/Intern-Management-App?type=whiteboard&node-id=0%3A1&t=fYyNxllUHpjG4fHN-1) for the project wireframe.
 
-Buckle your belts, because we are going on a ride!! We got this guys! Fighting!!! ⸂⸂⸜(രᴗര๑)⸝⸃⸃(づ ◕‿◕ )づ
+### Deploy on Vercel
+
+The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+
+Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+
+
+**Buckle your belts, because we are going on a ride!! We got this guys! Fighting!!! ⸂⸂⸜(രᴗര๑)⸝⸃⸃(づ ◕‿◕ )づ**
