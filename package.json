@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "dev1": "nodemon server/server.js",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
@@ -14,9 +15,13 @@
     "@types/react-dom": "18.2.7",
     "eslint": "8.46.0",
     "eslint-config-next": "13.4.12",
+    "express": "^4.18.2",
     "next": "13.4.12",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "typescript": "5.1.6"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
   }
 }
