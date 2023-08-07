@@ -28,7 +28,7 @@ const userSchema = new mongoose.Schema({
     ref: 'User'
   },
   internRole: {
-    type: String, // Enum: 'project manager', 'software engineer', etc.
+    type: String, //'project manager', 'software engineer'
     required: function() {
       return this.role === 'intern'; // Only required for interns
     }

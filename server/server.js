@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
-const User = require("./userModel"); // Import the User model
-const LeaveRequest = require("./leaveRequestModel"); // Import the LeaveRequest model
+const User = require("./userModel"); 
+const LeaveRequest = require("./leaveRequestModel"); 
 const express = require("express");
 const app = express();
 require('dotenv').config();
@@ -22,7 +22,7 @@ mongoose.connect(process.env.Mongo_DB_URI, {
 })
 .then(() => {
   app.listen(5005, () => {
-    console.log("App is running on port 5001");
+    console.log("App is running on port 5005");
   });
   console.log("Connected to MongoDB");
 })
