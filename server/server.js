@@ -4,6 +4,7 @@ const PORT = 3001;
 const dotenv = require("dotenv");
 const {auth} = require("express-openid-connect");
 
+//npm i express-openid-connect dotenv 
 
 const internRouter = require("./routes/internRoute");
 const loginRouter = require("./routes/login");
