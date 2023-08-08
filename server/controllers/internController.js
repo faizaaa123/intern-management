@@ -1,40 +1,60 @@
 //@desc get all interns
 //@route GET /api/v1/interns
 // @access Private
+const ErrorResponse = require("../utils/errorResponse");
+const User = require("../models/userModel");
+const asyncHandler = require("../middleware/async");
 
-exports.getAllInterns = async (req, res) => {
-  res.status(200).json({ success: true, message: "Show interns" });
-};
+exports.getAllInterns = asyncHandler(async (req, res, next) => {
+  const interns = await User.find();
+  res.status(200).json({ success: true, count: interns.length, data: interns });
+});
 //@desc get one intern
 //@route GET /api/v1/interns/:id
 // @access Private
-exports.getOneIntern = async (req, res) => {
-  res
-    .status(200)
-    .json({ success: true, message: `Show intern ${req.params.id}` });
-};
+exports.getOneIntern = asyncHandler(async (req, res, next) => {
+  const intern = await User.findById(req.params.id);
+  if (!intern) {
+    return next(
+      new ErrorResponse(`Intern not found with an id of ${req.params.id}`, 404)
+    );
+  }
+  res.status(200).json({ success: true, data: intern });
+});
 
 //@desc Create intern
 //@route POST /api/v1/interns
 // @access Private - only registered users can create.
-exports.createIntern = async (req, res) => {
-  res.status(200).json({ success: true, message: "Intern created" });
-};
+exports.createIntern = asyncHandler(async (req, res, next) => {
+  const newIntern = await User.create(req.body);
+  res.status(201).json({ success: true, data: newIntern });
+});
 
 //@desc update an intern
 //@route PUT /api/v1/interns/:id
 // @access Private
-exports.updateIntern = async (req, res) => {
-  res
-    .status(200)
-    .json({ success: true, message: `Intern data updated ${req.params.id}` });
-};
+exports.updateIntern = asyncHandler(async (req, res, next) => {
+  const intern = await User.findByIdAndUpdate(req.params.id, req.body, {
+    new: true,
+    runValidators: true,
+  });
+  if (!intern) {
+    return next(
+      new ErrorResponse(`Intern not found with an id of ${req.params.id}`, 404)
+    );
+  }
+  res.status(200).json({ success: true, data: intern });
+});
 
 //@desc delete one intern
 //@route DELETE /api/v1/interns/:id
 // @access Private
-exports.deleteIntern = async (req, res) => {
-  res
-    .status(200)
-    .json({ success: true, message: `Intern deleted ${req.params.id}` });
-};
+exports.deleteIntern = asyncHandler(async (req, res) => {
+  const intern = await User.findByIdAndDelete(req.params.id);
+  if (!intern) {
+    return next(
+      new ErrorResponse(`Intern not found with an id of ${req.params.id}`, 404)
+    );
+  }
+  res.status(200).json({ success: true, data: {} });
+});
