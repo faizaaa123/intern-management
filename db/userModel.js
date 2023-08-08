@@ -33,9 +33,6 @@ const userSchema = new mongoose.Schema({
       return this.role === 'intern'; // Only required for interns
     }
   },
-  last_checkin: {
-    type: Date
-  },
   checkedIn: {
       type: String,
       enum: ["checkedIn", "wfh","onLeave"],
