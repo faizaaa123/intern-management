@@ -5,12 +5,12 @@ import {useState} from "react";
 
 export default function Home() {
   const [status, setStatus] = useState("");
-  const handlePointerDown = () => {
+  const handleClick = () => {
     // User swiped down, set status to 'working from home'
     setStatus('working from home');
   };
 
-  const handlePointerUp = () => {
+  const handleDoubleClick = () => {
     // User swiped up, set status to 'in office'
     setStatus('in office');
   };
@@ -20,22 +20,20 @@ export default function Home() {
       <h1>Manual Check-in System</h1>
       <div
         style={{
-          width: '100px',
-          height: '100px',
+          width: '200px',
+          height: '200px',
           background: '#007bff',
           color: '#fff',
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
           fontSize: '20px',
           fontWeight: 'bold',
           cursor: 'pointer',
           userSelect: 'none',
+          border: "1px black solid"
         }}
-        onPointerDown={handlePointerDown}
-        onPointerUp={handlePointerUp}
+        onDoubleClick={handleDoubleClick}
+        onClick={handleClick}
       >
-        Click and hold to Check-in "Working from Home" or Release to Check-in "In Office"
+        Tap to Check-in "Working from Home" or Double Tap to Check-in "In Office"
       </div>
       {status && <p>You are currently checked in as "{status}"</p>}
     </div>
