@@ -22,14 +22,13 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use(logger);
+// app.use(logger);
 
 app.use("/api/v1/interns", internRouter);
 
 app.use(errorHandler);
-
 mongoose
-  .connect(process.env.Mongo_DB_URI, {
+  .connect(process.env.Mongo_TEST_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })

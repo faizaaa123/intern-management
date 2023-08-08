@@ -28,12 +28,6 @@ const userSchema = new mongoose.Schema({
     type: String,
     enum: ["intern", "supervisor"],
     required: [true, "Please add a role"],
-    // validate: {
-    //   validator: function (value) {
-    //     return ["intern", "supervisor"].includes(value);
-    //   },
-    //   message: "Invalid role value",
-    // },
   },
   supervisor: {
     type: mongoose.Schema.Types.ObjectId,
