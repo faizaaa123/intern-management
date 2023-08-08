@@ -23,7 +23,7 @@ const importData = async () => {
 
     process.exit();
   } catch (err) {
-    console.error(err);
+    console.log(err);
   }
 };
 
@@ -36,7 +36,7 @@ const deleteData = async () => {
     // process.exit();
     mongoose.connection.close();
   } catch (err) {
-    console.error(err);
+    console.log(err);
   }
 };
 
@@ -45,3 +45,8 @@ if (process.argv[2] === "-i") {
 } else if (process.argv[2] === "-d") {
   deleteData();
 }
+
+module.exports = {
+  importData,
+  deleteData,
+};
