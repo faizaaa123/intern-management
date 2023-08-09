@@ -3,6 +3,8 @@ const app = express();
 const PORT = 3001;
 const dotenv = require("dotenv");
 const {auth} = require("express-openid-connect");
+const cors = require('cors')
+app.use(cors())
 
 //npm i express-openid-connect dotenv 
 
