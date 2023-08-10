@@ -42,6 +42,10 @@ const userSchema = new mongoose.Schema({
   last_checkin: {
     type: Date,
   },
+  request: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "LeaveRequest",
+  },
 });
 
 const User = mongoose.model("User", userSchema);
