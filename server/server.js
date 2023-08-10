@@ -2,12 +2,9 @@ const mongoose = require("mongoose");
 const express = require("express");
 const internRouter = require("./routes/internRoute");
 const requestRouter = require("./routes/requestRoute");
-
 const errorHandler = require("./middleware/error");
 const app = express();
-const dotenv = require("dotenv");
-
-dotenv.config({ path: ".env" });
+require('dotenv').config();
 
 const cors = require("cors");
 
@@ -45,7 +42,7 @@ app.use("/api/v1/requests", requestRouter);
 
 app.use(errorHandler);
 mongoose
-  .connect(MONGO_DB_URIs, {
+  .connect(process.env.Mongo_DB_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
