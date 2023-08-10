@@ -8,7 +8,7 @@ const errorHandler = require("./middleware/error");
 const app = express();
 const dotenv = require("dotenv");
 
-dotenv.config({ path: "./config/.env" });
+dotenv.config({ path: ".env" });
 
 const cors = require("cors");
 
@@ -22,13 +22,30 @@ app.use((req, res, next) => {
   next();
 });
 
-// app.use(logger);
+const internAccess = (req, res, next) => {
+  if (req.user && req.user.role === 'intern') {
+    // User is an intern, grant access
+    next();
+  } else {
+    res.status(403).json({ message: 'Access denied.' });
+  }
+};
 
+
+const supervisorAccess = (req, res, next) => {
+  if (req.user && req.user.role === 'supervisor') {
+    // User is a supervisor, grant access
+    res.status|(200).json({message: 'supervisor granted'})
+    next(); 
+  } else {
+    res.status(403).json({ message: 'Access denied.' });
+  }
+};
 app.use("/api/v1/interns", internRouter);
 
 app.use(errorHandler);
 mongoose
-  .connect(process.env.Mongo_TEST_URI, {
+  .connect(MONGO_DB_URIs, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })

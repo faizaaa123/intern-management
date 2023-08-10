@@ -26,7 +26,12 @@ exports.getOneIntern = asyncHandler(async (req, res, next) => {
 //@route POST /api/v1/interns
 // @access Private - only registered users can create.
 exports.createIntern = asyncHandler(async (req, res, next) => {
-  const newIntern = await User.create(req.body);
+  const {email , firstname, lastname} = req.body
+  const newIntern = await User.create({
+    email,
+    firstname,
+    lastname, 
+    role:"intern"});
   res.status(201).json({ success: true, data: newIntern });
 });
 

@@ -20,14 +20,10 @@ const userSchema = new mongoose.Schema({
     ],
     unique: true,
   },
-  password: {
-    type: String,
-    required: [true, "Please add a name"],
-  },
   role: {
     type: String,
     enum: ["intern", "supervisor"],
-    required: [true, "Please add a role"],
+    default: "intern"
   },
   supervisor: {
     type: mongoose.Schema.Types.ObjectId,
@@ -35,9 +31,7 @@ const userSchema = new mongoose.Schema({
   },
   internRole: {
     type: String, // Enum: 'project manager', 'software engineer', etc.
-    required: function () {
-      return this.role === "intern"; // Only required for interns
-    },
+    enum: ["project manager","software engineer" ]
   },
   last_checkin: {
     type: Date,
