@@ -6,7 +6,7 @@ const errorHandler = (err, req, res, next) => {
   error.message = err.message;
   //mongoose bad objectID
   if (err.name === "CastError") {
-    const message = `Intern not found with an id of ${err.value}`;
+    const message = `Field not found with an id of ${err.value}`;
     error = new ErrorResponse(message, 404);
   }
 

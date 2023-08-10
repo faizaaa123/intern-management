@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
-const interns = require("./seed.json");
+const interns = require("./userSeed.json");
 //Load env vars
 dotenv.config({ path: "./config/.env" });
 
@@ -14,7 +14,7 @@ mongoose.connect(process.env.Mongo_TEST_URI, {
 });
 
 //Import into DB
-const importData = async () => {
+const importUserData = async () => {
   try {
     await User.create(interns);
 
@@ -29,7 +29,7 @@ const importData = async () => {
 
 //Delete data
 
-const deleteData = async () => {
+const deleteUserData = async () => {
   try {
     await User.deleteMany();
     console.log(`Data Destroyed....`);
@@ -41,12 +41,12 @@ const deleteData = async () => {
 };
 
 if (process.argv[2] === "-i") {
-  importData();
+  importUserData();
 } else if (process.argv[2] === "-d") {
-  deleteData();
+  deleteUserData();
 }
 
 module.exports = {
-  importData,
-  deleteData,
+  importUserData,
+  deleteUserData,
 };
