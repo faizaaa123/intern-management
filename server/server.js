@@ -1,9 +1,8 @@
 const mongoose = require("mongoose");
-const User = require("./models/userModel"); // Import the User model
-const LeaveRequest = require("./models/leaveRequestModel"); // Import the LeaveRequest model
 const express = require("express");
 const internRouter = require("./routes/internRoute");
-const logger = require("./middleware/logger");
+const requestRouter = require("./routes/requestRoute");
+
 const errorHandler = require("./middleware/error");
 const app = express();
 const dotenv = require("dotenv");
@@ -25,6 +24,7 @@ app.use((req, res, next) => {
 // app.use(logger);
 
 app.use("/api/v1/interns", internRouter);
+app.use("/api/v1/requests", requestRouter);
 
 app.use(errorHandler);
 mongoose
