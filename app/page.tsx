@@ -7,11 +7,11 @@ import Public from '../components/Public';
 import Protected from '../components/Protected';
 
 const MyApp: React.FC = () => {
-  const [isAuthenticated, setIsAuthenticated] = useState(true);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   useEffect(() => {
-    keycloak.init({ onLoad: 'login-required' }).then((isAuthenticated: boolean | ((prevState: boolean) => boolean)) => {
-      setIsAuthenticated(isAuthenticated);
+    keycloak.init({ onLoad: 'login-required' }).then((res) => {
+      setIsAuthenticated(res);
     });
   }, []);
 
