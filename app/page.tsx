@@ -2,7 +2,7 @@
 // pages/_app.tsx
 
 import { useEffect, useState } from 'react';
-import keycloak from '../keycloakConfig';
+import keycloak from '../KeycloakConfig';
 import Public from '../components/Public';
 import Protected from '../components/Protected';
 
@@ -12,7 +12,10 @@ const MyApp: React.FC = () => {
   useEffect(() => {
     keycloak.init({ onLoad: 'login-required' }).then((res) => {
       setIsAuthenticated(res);
-    });
+      })
+      .catch((error) => {
+        console.error('Keycloak Initialization Error:', error);
+      });
   }, []);
 
   return (
