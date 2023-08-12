@@ -4,12 +4,13 @@ const PORT = 5000;
 const dotenv = require("dotenv");
 const cors = require('cors')
 
-const profile = require("./routes/profile")
+const profile = require("./routes/profile");
+const authenticate = require("./routes/authenticate");
 app.use(cors())
 
 dotenv.config()
 
-app.use("/profile", profile)
+app.use("/profile",authenticate, profile)
 
 app.listen(
     PORT,
