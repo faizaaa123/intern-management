@@ -1,7 +1,9 @@
 import React from 'react'
 
+
+
 export default function Public() {
   return (
-    <div>Loading...</div>
+<h1>this is the public page.</h1>
   )
 }
