@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const Schema = require("seed/lib/seed/schema");
 
 const userSchema = new mongoose.Schema({
   firstname: {
@@ -23,7 +24,7 @@ const userSchema = new mongoose.Schema({
   role: {
     type: String,
     enum: ["intern", "supervisor"],
-    default: "intern"
+    default: "intern",
   },
   supervisor: {
     type: mongoose.Schema.Types.ObjectId,
@@ -31,11 +32,17 @@ const userSchema = new mongoose.Schema({
   },
   internRole: {
     type: String, // Enum: 'project manager', 'software engineer', etc.
-    enum: ["project manager","software engineer" ]
+    enum: ["project manager", "software engineer"],
   },
   last_checkin: {
     type: Date,
   },
+  leaveRequests: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "LeaveRequest",
+    },
+  ],
 });
 
 const User = mongoose.model("User", userSchema);

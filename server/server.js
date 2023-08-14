@@ -2,12 +2,14 @@ const mongoose = require("mongoose");
 const express = require("express");
 const internRouter = require("./routes/internRoute");
 const requestRouter = require("./routes/requestRoute");
+const User = require("./models/userModel");
+const LeaveRequest = require("./models/leaveRequestModel");
 
 const errorHandler = require("./middleware/error");
 const app = express();
 const dotenv = require("dotenv");
 
-dotenv.config({ path: ".env" });
+dotenv.config({ path: "./config/.env" });
 
 const cors = require("cors");
 
@@ -22,30 +24,40 @@ app.use((req, res, next) => {
 });
 
 const internAccess = (req, res, next) => {
-  if (req.user && req.user.role === 'intern') {
+  if (req.user && req.user.role === "intern") {
     // User is an intern, grant access
     next();
   } else {
-    res.status(403).json({ message: 'Access denied.' });
+    res.status(403).json({ message: "Access denied." });
   }
 };
 
-
 const supervisorAccess = (req, res, next) => {
-  if (req.user && req.user.role === 'supervisor') {
+  if (req.user && req.user.role === "supervisor") {
     // User is a supervisor, grant access
-    res.status|(200).json({message: 'supervisor granted'})
-    next(); 
+    res.status | (200).json({ message: "supervisor granted" });
+    next();
   } else {
-    res.status(403).json({ message: 'Access denied.' });
+    res.status(403).json({ message: "Access denied." });
   }
 };
 app.use("/api/v1/interns", internRouter);
 app.use("/api/v1/requests", requestRouter);
 
+//creating get requests associated with a user
+app.get("/api/v1/:id/requests", async (req, res) => {
+  const user = await User.findById(req.params.id);
+  if (!user) {
+    return next(
+      new ErrorResponse(`User not found with an id of ${req.params.id}`, 404)
+    );
+  }
+  const requests = await LeaveRequest.find({ user: user._id });
+  res.status(200).json({ success: true, data: requests });
+});
 app.use(errorHandler);
 mongoose
-  .connect(MONGO_DB_URIs, {
+  .connect(process.env.Mongo_DB_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })

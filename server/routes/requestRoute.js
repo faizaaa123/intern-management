@@ -5,6 +5,7 @@ const {
   createRequest,
   updateRequest,
   deleteRequest,
+  getUserRequests,
 } = require("../controllers/requestController");
 const requestRouter = express.Router();
 
@@ -15,4 +16,5 @@ requestRouter
   .put(updateRequest)
   .delete(deleteRequest);
 
+// requestRouter.route("/:userId").get(getUserRequests);
 module.exports = requestRouter;

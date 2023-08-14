@@ -4,6 +4,7 @@
 const ErrorResponse = require("../utils/errorResponse");
 const LeaveRequest = require("../models/leaveRequestModel");
 const asyncHandler = require("../middleware/async");
+const User = require("../models/userModel");
 
 exports.getRequests = asyncHandler(async (req, res, next) => {
   const requests = await LeaveRequest.find();
@@ -27,11 +28,31 @@ exports.getRequest = asyncHandler(async (req, res, next) => {
   res.status(200).json({ success: true, data: request });
 });
 
+//@desc get all requests associated with a user
+//@route GET /api/v1/:id/requests
+// @access Private
+//TODO: Complete this method to allow users to search for all the requests theyve created
+exports.getUserRequests = asyncHandler(async (req, res, next) => {
+  const user = await User.findById(req.params.id);
+
+  if (!user) {
+    return next(
+      new ErrorResponse(`User not found with an id of ${req.params.id}`, 404)
+    );
+  }
+
+  const requests = await LeaveRequest.find({ user: user._id });
+
+  res.status(200).json({ success: true, data: requests });
+});
+
 //@desc Create a new requesst
 //@route POST /api/v1/requests
 // @access Private - only registered LeaveRequests can create.
+//TODO1: Only if the user exists in the database can a leave request be created.
 exports.createRequest = asyncHandler(async (req, res, next) => {
   const newRequest = await LeaveRequest.create(req.body);
+  //TODO:if the req.body.user exists then it should create a new request
   res.status(201).json({ success: true, data: newRequest });
 });
 
@@ -61,7 +82,7 @@ exports.updateRequest = asyncHandler(async (req, res, next) => {
 //@desc delete one request
 //@route DELETE /api/v1/requests/:id
 // @access Private
-exports.deleteRequest = asyncHandler(async (req, res) => {
+exports.deleteRequest = asyncHandler(async (req, res, next) => {
   const request = await LeaveRequest.findByIdAndDelete(req.params.id);
   if (!request) {
     return next(
