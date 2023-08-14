@@ -8,14 +8,8 @@
     "start": "next start",
     "lint": "next lint",
     "server": "nodemon server/server.js",
-<<<<<<< HEAD
     "database": "nodemon ./server/server.js",
-    "test": "jest",
-    "seed": "./seed.json"
-=======
-    "database": "nodemon ./db/server.js",
     "keycloak": "nodemon ./server/keycloakServer.js"
->>>>>>> origin/keycloakTestJelly
   },
   "dependencies": {
     "@auth0/nextjs-auth0": "^3.1.0",

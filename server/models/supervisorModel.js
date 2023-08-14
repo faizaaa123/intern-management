@@ -1,6 +1,6 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 
-const userSchema = new mongoose.Schema({
+const supervisorSchema = new mongoose.Schema({
   firstname: {
     type: String,
     required: [true, "Please add a firstname"],
@@ -20,19 +20,12 @@ const userSchema = new mongoose.Schema({
     ],
     unique: true,
   },
-  supervisor: {
+  interns: [{
     type: mongoose.Schema.Types.ObjectId,
-    ref: "Supervisor",
-  },
-  internRole: {
-    type: String, // Enum: 'project manager', 'software engineer', etc.
-    enum: ["project manager","software engineer" ]
-  },
-  last_checkin: {
-    type: Date,
-  },
+    ref: 'User'
+  }],
 });
 
-const User = mongoose.model("User", userSchema);
+const Supervisor = mongoose.model('Supervisor', supervisorSchema);
 
-module.exports = User;
+module.exports = Supervisor;
