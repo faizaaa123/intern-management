@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const { requiresAuth } = require('express-openid-connect');
-const User = require("../../db/userModel");
+// const User = require("../../db/userModel");
 const jwt = require("jsonwebtoken");
 const dotenv = require("dotenv");
 
@@ -18,12 +18,12 @@ const {
 
 
 
-async function checkExistingUser(user) {
-    const firstName = user.given_name;
-    const response = await User.findOne({where: {firstName: given_name}});
-    console.log(response)
-    return response;
-}
+// async function checkExistingUser(user) {
+//     const firstName = user.given_name;
+//     const response = await User.findOne({where: {firstName: given_name}});
+//     console.log(response)
+//     return response;
+// }
 
 //getting main page and logging user's details into database
 router.get("/", async (req, res) => {

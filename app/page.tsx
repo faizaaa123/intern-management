@@ -30,9 +30,7 @@ const MyApp: React.FC = () => {
 
   return (
     <div>
-    <AuthProviderWithHistory>
-    {isAuthenticated ? <Protected/> : <Public />}
-    </AuthProviderWithHistory>
+    <Public />
     </div>
   );
 };
