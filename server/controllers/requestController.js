@@ -7,7 +7,13 @@ const asyncHandler = require("../middleware/async");
 const User = require("../models/userModel");
 
 exports.getRequests = asyncHandler(async (req, res, next) => {
-  const requests = await LeaveRequest.find();
+  const { status } = req.query;
+  const requests = await LeaveRequest.find({ status });
+  if (!requests) {
+    return next(
+      new ErrorResponse(`No leave requests found with status: ${status}`, 404)
+    );
+  }
   res
     .status(200)
     .json({ success: true, count: requests.length, data: requests });
@@ -26,24 +32,6 @@ exports.getRequest = asyncHandler(async (req, res, next) => {
     );
   }
   res.status(200).json({ success: true, data: request });
-});
-
-//@desc get all requests associated with a user
-//@route GET /api/v1/:id/requests
-// @access Private
-//TODO: Complete this method to allow users to search for all the requests theyve created
-exports.getUserRequests = asyncHandler(async (req, res, next) => {
-  const user = await User.findById(req.params.id);
-
-  if (!user) {
-    return next(
-      new ErrorResponse(`User not found with an id of ${req.params.id}`, 404)
-    );
-  }
-
-  const requests = await LeaveRequest.find({ user: user._id });
-
-  res.status(200).json({ success: true, data: requests });
 });
 
 //@desc Create a new requesst

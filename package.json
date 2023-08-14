@@ -28,6 +28,7 @@
     "react-dom": "18.2.0",
     "request": "^2.88.2",
     "seed": "^0.4.4",
+    "slugify": "^1.6.6",
     "typescript": "5.1.6"
   },
   "devDependencies": {

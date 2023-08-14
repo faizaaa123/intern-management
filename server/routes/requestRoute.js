@@ -5,7 +5,7 @@ const {
   createRequest,
   updateRequest,
   deleteRequest,
-  getUserRequests,
+  getLeaveRequestsByStatus,
 } = require("../controllers/requestController");
 const requestRouter = express.Router();
 
