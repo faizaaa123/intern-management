@@ -23,14 +23,9 @@ const userSchema = new mongoose.Schema({
     ],
     unique: true,
   },
-  role: {
-    type: String,
-    enum: ["intern", "supervisor"],
-    default: "intern",
-  },
   supervisor: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "User",
+    ref: "Supervisor",
   },
   internRole: {
     type: String, // Enum: 'project manager', 'software engineer', etc.

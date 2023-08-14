@@ -5,6 +5,7 @@
 /.pnp
 .pnp.j
 .env
+package-lock.json
 
 # testing
 /coverage
@@ -28,9 +29,12 @@ yarn-error.log*
 # local env files
 .env*.local
 .env
+package-lock.json
+
 # vercel
 .vercel
 
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+KeycloakConfig.ts
