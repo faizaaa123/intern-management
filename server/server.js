@@ -27,20 +27,21 @@ const internAccess = (req, res, next) => {
   }
 };
 
-
 const supervisorAccess = (req, res, next) => {
   if (req.user && req.user.role === 'supervisor') {
     // User is a supervisor, grant access
-    res.status|(200).json({message: 'supervisor granted'})
+    res.status(200).json({ message: 'Supervisor granted' });
     next(); 
   } else {
     res.status(403).json({ message: 'Access denied.' });
   }
 };
+
 app.use("/api/v1/interns", internRouter);
 app.use("/api/v1/requests", requestRouter);
 
 app.use(errorHandler);
+
 mongoose
   .connect(process.env.Mongo_DB_URI, {
     useNewUrlParser: true,

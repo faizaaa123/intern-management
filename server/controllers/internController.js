@@ -39,7 +39,7 @@ exports.createIntern = asyncHandler(async (req, res, next) => {
 //@route PUT /api/v1/interns/:id
 // @access Private
 exports.updateIntern = asyncHandler(async (req, res, next) => {
-  const {firstname,lastname,internRole,supervisor} = req.body
+  const {internRole} = req.body
   const intern = await User.findByIdAndUpdate(req.params.id, {firstname,lastname,internRole,supervisor})({
     new: true,
     runValidators: true,
