@@ -26,12 +26,13 @@ exports.getOneIntern = asyncHandler(async (req, res, next) => {
 //@route POST /api/v1/interns
 // @access Private - only registered users can create.
 exports.createIntern = asyncHandler(async (req, res, next) => {
-  const {email , firstname, lastname} = req.body
+  const { email, firstname, lastname } = req.body;
   const newIntern = await User.create({
     email,
     firstname,
-    lastname, 
-    role:"intern"});
+    lastname,
+    role: "intern",
+  });
   res.status(201).json({ success: true, data: newIntern });
 });
 
@@ -39,17 +40,15 @@ exports.createIntern = asyncHandler(async (req, res, next) => {
 //@route PUT /api/v1/interns/:id
 // @access Private
 exports.updateIntern = asyncHandler(async (req, res, next) => {
-  const {firstname,lastname,internRole,supervisor} = req.body
-  const intern = await User.findByIdAndUpdate(req.params.id, {firstname,lastname,internRole,supervisor})({
-    new: true,
-    runValidators: true,
-  });
+  const intern = await User.findById(req.params.id);
   if (!intern) {
     return next(
       new ErrorResponse(`Intern not found with an id of ${req.params.id}`, 404)
     );
   }
-  res.status(200).json({ success: true, data: intern });
+  await User.updateOne(intern, req.body);
+  const updatedIntern = await User.findById(req.params.id);
+  res.status(200).json({ success: true, data: updatedIntern });
 });
 
 //@desc delete one intern

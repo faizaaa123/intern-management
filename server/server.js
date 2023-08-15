@@ -2,6 +2,8 @@ const mongoose = require("mongoose");
 const express = require("express");
 const internRouter = require("./routes/internRoute");
 const requestRouter = require("./routes/requestRoute");
+const supervisorRouter = require("./routes/supervisorRoute");
+
 const User = require("./models/userModel");
 const LeaveRequest = require("./models/leaveRequestModel");
 
@@ -43,6 +45,7 @@ const supervisorAccess = (req, res, next) => {
 };
 app.use("/api/v1/interns", internRouter);
 app.use("/api/v1/requests", requestRouter);
+app.use("/api/v1/supervisors", supervisorRouter);
 
 //creating get requests associated with a user
 app.get("/api/v1/:id/requests", async (req, res) => {

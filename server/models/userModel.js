@@ -8,7 +8,7 @@ const userSchema = new mongoose.Schema({
     required: [true, "Please add a firstname"],
     maxlength: [50, "Name can not be more than 50 characters"],
   },
-  slug: String,
+  // slug: String,
   lastname: {
     type: String,
     required: [true, "Please add a lastname"],
@@ -44,10 +44,10 @@ const userSchema = new mongoose.Schema({
 
 //Create user slug from schema
 
-userSchema.pre("save", function (next) {
-  this.slug = slugify(this.name, { lower: true });
-  next();
-});
+// userSchema.pre("save", function (next) {
+//   this.slug = slugify(this.name, { lower: true });
+//   next();
+// });
 
 const User = mongoose.model("User", userSchema);
 

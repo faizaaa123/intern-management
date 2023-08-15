@@ -4,7 +4,7 @@
 const ErrorResponse = require("../utils/errorResponse");
 const LeaveRequest = require("../models/leaveRequestModel");
 const asyncHandler = require("../middleware/async");
-const User = require("../models/userModel");
+// const User = require("../models/userModel");
 
 exports.getRequests = asyncHandler(async (req, res, next) => {
   const { status } = req.query;
@@ -47,24 +47,17 @@ exports.createRequest = asyncHandler(async (req, res, next) => {
 //@desc update a request
 //@route PUT /api/v1/requests/:id
 // @access Private
+//TODO: Update Requestas it doesnt work
 exports.updateRequest = asyncHandler(async (req, res, next) => {
-  const request = await LeaveRequest.findByIdAndUpdate(
-    req.params.id,
-    req.body,
-    {
-      new: true,
-      runValidators: true,
-    }
-  );
+  const request = await LeaveRequest.findById(req.params.id);
   if (!request) {
     return next(
-      new ErrorResponse(
-        `Leave Request not found with an id of ${req.params.id}`,
-        404
-      )
+      new ErrorResponse(`Request not found with an id of ${req.params.id}`, 404)
     );
   }
-  res.status(200).json({ success: true, data: request });
+  await LeaveRequest.updateOne(request, req.body);
+  const updatedRequest = await LeaveRequest.findById(req.params.id);
+  res.status(200).json({ success: true, data: updatedRequest });
 });
 
 //@desc delete one request
