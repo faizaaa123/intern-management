@@ -4,6 +4,7 @@
 const ErrorResponse = require("../utils/errorResponse");
 const LeaveRequest = require("../models/leaveRequestModel");
 const asyncHandler = require("../middleware/async");
+const User = require("../models/userModel");
 // const User = require("../models/userModel");
 
 exports.getRequests = asyncHandler(async (req, res, next) => {
@@ -37,17 +38,23 @@ exports.getRequest = asyncHandler(async (req, res, next) => {
 //@desc Create a new requesst
 //@route POST /api/v1/requests
 // @access Private - only registered LeaveRequests can create.
-//TODO1: Only if the user exists in the database can a leave request be created.
 exports.createRequest = asyncHandler(async (req, res, next) => {
   const newRequest = await LeaveRequest.create(req.body);
-  //TODO:if the req.body.user exists then it should create a new request
+
+  if (newRequest.user) {
+    const intern = await User.findById(newRequest.user);
+
+    if (intern) {
+      intern.leaveRequests.push(newRequest);
+      await intern.save();
+    }
+  }
   res.status(201).json({ success: true, data: newRequest });
 });
 
 //@desc update a request
 //@route PUT /api/v1/requests/:id
 // @access Private
-//TODO: Update Requestas it doesnt work
 exports.updateRequest = asyncHandler(async (req, res, next) => {
   const request = await LeaveRequest.findById(req.params.id);
   if (!request) {

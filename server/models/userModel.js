@@ -34,12 +34,7 @@ const userSchema = new mongoose.Schema({
   last_checkin: {
     type: Date,
   },
-  leaveRequests: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "LeaveRequest",
-    },
-  ],
+  leaveRequests: [],
 });
 
 //Create user slug from schema

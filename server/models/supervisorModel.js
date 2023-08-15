@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 const supervisorSchema = new mongoose.Schema({
   firstname: {
@@ -20,12 +20,9 @@ const supervisorSchema = new mongoose.Schema({
     ],
     unique: true,
   },
-  interns: [{
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'User'
-  }],
+  interns: [],
 });
 
-const Supervisor = mongoose.model('Supervisor', supervisorSchema);
+const Supervisor = mongoose.model("Supervisor", supervisorSchema);
 
 module.exports = Supervisor;

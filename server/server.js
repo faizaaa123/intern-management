@@ -6,6 +6,7 @@ const supervisorRouter = require("./routes/supervisorRoute");
 
 const User = require("./models/userModel");
 const LeaveRequest = require("./models/leaveRequestModel");
+const Supervisor = require("./models/supervisorModel");
 
 const errorHandler = require("./middleware/error");
 const app = express();
@@ -52,12 +53,31 @@ app.get("/api/v1/:id/requests", async (req, res) => {
   const user = await User.findById(req.params.id);
   if (!user) {
     return next(
-      new ErrorResponse(`User not found with an id of ${req.params.id}`, 404)
+      new ErrorResponse(
+        `Request not found with a user id of ${req.params.id}`,
+        404
+      )
     );
   }
   const requests = await LeaveRequest.find({ user: user._id });
   res.status(200).json({ success: true, data: requests });
 });
+
+//creating get requests associated with supervisor (supervisors can access all interns associated with them)
+app.get("/api/v1/:id/interns", async (req, res) => {
+  const supervisor = await Supervisor.findById(req.params.id);
+  if (!supervisor) {
+    return next(
+      new ErrorResponse(
+        `Intern not found with a supervisor id of ${req.params.id}`,
+        404
+      )
+    );
+  }
+  const interns = await User.find({ supervisor: supervisor._id });
+  res.status(200).json({ success: true, data: interns });
+});
+
 app.use(errorHandler);
 mongoose
   .connect(process.env.Mongo_DB_URI, {
