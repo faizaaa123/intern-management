@@ -1,11 +1,11 @@
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
-const interns = require("./userSeed.json");
+const supervisors = require("./supervisorSeed.json");
 //Load env vars
 dotenv.config({ path: "./config/.env" });
 
 //Load models
-const User = require("./server/models/userModel");
+const Supervisor = require("./server/models/supervisorModel");
 
 //Connect to DB
 mongoose.connect(process.env.Mongo_DB_URI, {
@@ -14,9 +14,9 @@ mongoose.connect(process.env.Mongo_DB_URI, {
 });
 
 //Import into DB
-const importUserData = async () => {
+const importSupervisorData = async () => {
   try {
-    await User.create(interns);
+    await Supervisor.create(supervisors);
 
     console.log(`Data Imported....`);
     mongoose.connection.close();
@@ -29,9 +29,9 @@ const importUserData = async () => {
 
 //Delete data
 
-const deleteUserData = async () => {
+const deleteSupervisorData = async () => {
   try {
-    await User.deleteMany();
+    await Supervisor.deleteMany();
     console.log(`Data Destroyed....`);
     // process.exit();
     mongoose.connection.close();
@@ -41,12 +41,12 @@ const deleteUserData = async () => {
 };
 
 if (process.argv[2] === "-i") {
-  importUserData();
+  importSupervisorData();
 } else if (process.argv[2] === "-d") {
-  deleteUserData();
+  deleteSupervisorData();
 }
 
 module.exports = {
-  importUserData,
-  deleteUserData,
+  importSupervisorData,
+  deleteSupervisorData,
 };
