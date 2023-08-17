@@ -1,4 +1,3 @@
-"use client"
 // pages/_app.tsx
 import AuthProviderWithHistory from "../auth0provider";
 import { useEffect, useState } from 'react';
@@ -14,15 +13,11 @@ import Protected from "@/components/Protected";
 import AuthProviderHistory from "../auth0provider"
 
 const MyApp: React.FC = () => {
-  const isAuthenticated = useAuth0()
 
   return (
-    // <UserProvider>
-    <AuthProviderHistory>
-       <Public/>
-    </AuthProviderHistory>
-     
-    // </UserProvider>
+
+     <Public/>
+
   );
 };
 

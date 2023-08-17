@@ -8,7 +8,6 @@ const app = express();
 require('dotenv').config();
 
 const cors = require("cors");
-const loginRouter = require("../server/routes/login");
 
 app.use(express.json());
 app.use(cors());
@@ -58,24 +57,5 @@ mongoose
   .catch((error) => {
     console.log(error);
   });
-
-  const {
-    AUTH0_SECRET,
-    AUTH0_CLIENT_ID,
-    AUTH0_ISSUER_BASE_URL,
-    BASE_URL
-  } = process.env
-  
-  const config = {
-    authRequired: true,
-    auth0Logout: true,
-    secret: AUTH0_SECRET,
-    baseURL: BASE_URL,
-    clientID: AUTH0_CLIENT_ID,
-    issuerBaseURL: AUTH0_ISSUER_BASE_URL
-  };
-  
-  app.use(auth(config));
-  app.use("/", loginRouter)
 
 module.exports = app;
