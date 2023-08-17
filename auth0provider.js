@@ -6,18 +6,20 @@ dotenv.config()
 const {
     AUTH0_CLIENT_ID,
     AUTH0_ISSUER_BASE_URL,
-    BASE_URL
+    AUTH0_BASE_URL,
+    AUTH0_DOMAIN
 } = process.env
 
 const Auth0ProviderWithHistory = ({ children }) => {
-  const domain = AUTH0_ISSUER_BASE_URL;
+  const domain = AUTH0_DOMAIN;
   const clientId = AUTH0_CLIENT_ID;
+  const baseUrl = AUTH0_BASE_URL
 
   return (
     <Auth0Provider
       domain={domain}
       clientId={clientId}
-      redirectUri= {BASE_URL} //apparently will need to use this since `redirctUri will no longer be supported: authorizationParams.redirect_uri`
+      redirectUri= {baseUrl} //apparently will need to use this since `redirctUri will no longer be supported: authorizationParams.redirect_uri`
     >
       {children}
     </Auth0Provider>

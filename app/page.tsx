@@ -11,27 +11,18 @@ import { useAuth0 } from '@auth0/auth0-react';
 import { UserProvider } from '@auth0/nextjs-auth0/client';
 import Public from '@/components/Public';
 import Protected from "@/components/Protected";
+import AuthProviderHistory from "../auth0provider"
 
 const MyApp: React.FC = () => {
   const isAuthenticated = useAuth0()
-  // const [isAuthenticated, setIsAuthenticated] = useState(false);
-  // const [token, setToken] = useState<string | undefined>("");
-
-  // useEffect(() => {
-  //   keycloak.init({ onLoad: 'login-required' }).then((res) => {
-  //     setIsAuthenticated(res);
-  //     setToken(keycloak?.token);
-  //     })
-  //     .catch((error) => {
-  //       console.error('Keycloak Initialization Error:', error);
-  //     });
-  // }, []);
-  //console.log(token);
 
   return (
-    <div>
-    <Public />
-    </div>
+    // <UserProvider>
+    <AuthProviderHistory>
+       <Public/>
+    </AuthProviderHistory>
+     
+    // </UserProvider>
   );
 };
 
