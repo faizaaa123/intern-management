@@ -12,7 +12,7 @@ const errorHandler = require("./middleware/error");
 const app = express();
 const dotenv = require("dotenv");
 
-dotenv.config({ path: "./config/.env" });
+dotenv.config({ path: ".env" });
 
 const cors = require("cors");
 

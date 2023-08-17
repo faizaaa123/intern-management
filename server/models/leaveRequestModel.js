@@ -24,7 +24,9 @@ const leaveRequestSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  additional_notes: String,
+  additional_notes: {
+    type: String
+  }
 });
 
 const LeaveRequest = mongoose.model("LeaveRequest", leaveRequestSchema);

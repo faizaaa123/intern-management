@@ -39,10 +39,16 @@ exports.getRequest = asyncHandler(async (req, res, next) => {
 //@route POST /api/v1/requests
 // @access Private - only registered LeaveRequests can create.
 exports.createRequest = asyncHandler(async (req, res, next) => {
-  const newRequest = await LeaveRequest.create(req.body);
-
-  if (newRequest.user) {
-    const intern = await User.findById(newRequest.user);
+  const { start_date, end_date, user, reason, additional_notes } = req.body;
+  const newRequest = await LeaveRequest.create({
+    start_date,
+    end_date,
+    user,
+    reason,
+    additional_notes,
+  });
+  if (user) {
+    const intern = await User.findById(user);
 
     if (intern) {
       intern.leaveRequests.push(newRequest);
