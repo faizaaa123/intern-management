@@ -4,6 +4,7 @@
 const ErrorResponse = require("../utils/errorResponse");
 const User = require("../models/userModel");
 const asyncHandler = require("../middleware/async");
+const bcrypt = require("bcrypt")
 
 exports.getAllInterns = asyncHandler(async (req, res, next) => {
   const interns = await User.find();
@@ -26,12 +27,30 @@ exports.getOneIntern = asyncHandler(async (req, res, next) => {
 //@route POST /api/v1/interns
 // @access Private - only registered users can create.
 exports.createIntern = asyncHandler(async (req, res, next) => {
-  const {email , firstname, lastname} = req.body
+
+  const {email , firstname, lastname, password } = req.body.userData
+  
+  if (!firstname || !lastname || !email || !password) {
+    res.status(400).json({error: "All fields are required. Please fill in the missing fields."})
+  }
+
+  const exists = await User.findOne({where: {
+    email: email
+  }})
+
+  if(exists) {
+    res.status(400).json({error: "User already exists"})
+  }
+
+  const hashedPassword = await bcrypt.hash(password, 10);
+
   const newIntern = await User.create({
-    email,
-    firstname,
-    lastname, 
-    role:"intern"});
+    firstname: firstname,
+    lastname: lastname,
+    email: email,
+    password: hashedPassword ,
+    role:"intern"
+});
   res.status(201).json({ success: true, data: newIntern });
 });
 

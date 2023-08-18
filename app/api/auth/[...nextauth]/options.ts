@@ -1,7 +1,9 @@
 
 import type {NextAuthOptions} from "next-auth";
+import NextAuth from "next-auth/next";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { type } from "os";
+// const User = require("../../../../server/models/userModel");
 require("dotenv").config()
 
 export const options: NextAuthOptions = {
@@ -9,7 +11,17 @@ export const options: NextAuthOptions = {
         CredentialsProvider({
             name: "Credentials",
             credentials: {
-                username: {
+                // firstname: {
+                //     label: "Firstname:",
+                //     type: "text",
+                //     placeholder: "Enter your firstname"
+                // },
+                // lastname: {
+                //     label: "Lastname:",
+                //     type: "text",
+                //     placeholder: "Enter your lastname"
+                // },
+                email: {
                     label: "Email:",
                     type: "email",
                     placeholder: "Enter email"
@@ -23,9 +35,15 @@ export const options: NextAuthOptions = {
             async authorize(credentials) {
                 // this is where you retreive  user info from databse.
                 // check out the doc here: https://next-auth.js.org/configuration/providers/credentials
-                const user = {id: 500, email: "strawberrycrumble@gmail.com", password: "Crumble"}
+                // if(!credentials?.email || !credentials.password) {
+                //     return null
+                // }
 
-                if(credentials?.username === user.email && credentials?.password === user.password) {
+                // const exists = await User.findOne()
+
+                const user = {id: 500, email: "applecrumble@gmail.com", password: "123"}
+
+                if(credentials?.email === user.email && credentials?.password === user.password) {
                     return user
                 } else {
                     return null
@@ -41,3 +59,7 @@ export const options: NextAuthOptions = {
     debug: process.env.NODE_ENV === "development"
     
 }
+
+// const handler = NextAuth(options)
+
+// export { handler as GET, handler as POST } 
