@@ -45,15 +45,31 @@ exports.createIntern = asyncHandler(async (req, res, next) => {
 //@route PUT /api/v1/interns/:id
 // @access Private
 exports.updateIntern = asyncHandler(async (req, res, next) => {
-  const intern = await User.findById(req.params.id);
-  if (!intern) {
-    return next(
-      new ErrorResponse(`Intern not found with an id of ${req.params.id}`, 404)
+  try {
+    const updatedIntern = await User.findOneAndUpdate(
+      { _id: req.params.id },
+      {
+        $set: {
+          firstname: req.body.firstname,
+          lastname: req.body.lastname,
+          email: req.body.email,
+          internRole: req.body.internRole,
+        },
+      },
+      { new: true }
     );
+
+    if (!updatedIntern) {
+      return next(
+        new ErrorResponse(`Intern not found with an id of ${req.params.id}`, 404)
+      );
+    }
+
+    res.status(200).json({ success: true, data: updatedIntern });
+  } catch (error) {
+    console.error('Error updating intern:', error);
+    res.status(500).json({ success: false, error: 'Error updating intern profile' });
   }
-  await User.updateOne(intern, req.body);
-  const updatedIntern = await User.findById(req.params.id);
-  res.status(200).json({ success: true, data: updatedIntern });
 });
 
 //@desc delete one intern
