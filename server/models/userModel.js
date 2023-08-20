@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+// const UserInterface = require("./userInterface");
 
 const userSchema = new mongoose.Schema({
   firstname: {
@@ -6,6 +7,11 @@ const userSchema = new mongoose.Schema({
     required: [true, "Please add a firstname"],
     maxlength: [50, "Name can not be more than 50 characters"],
   },
+  password: {
+    type: String,
+    required: true,
+  },
+  // slug: String,
   lastname: {
     type: String,
     required: [true, "Please add a lastname"],
@@ -20,22 +26,18 @@ const userSchema = new mongoose.Schema({
     ],
     unique: true,
   },
-  role: {
-    type: String,
-    enum: ["intern", "supervisor"],
-    default: "intern"
-  },
   supervisor: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "User",
+    ref: "Supervisor",
   },
   internRole: {
     type: String, // Enum: 'project manager', 'software engineer', etc.
-    enum: ["project manager","software engineer" ]
+    enum: ["project manager", "software engineer"],
   },
   last_checkin: {
     type: Date,
   },
+  leaveRequests: [],
 });
 
 const User = mongoose.model("User", userSchema);

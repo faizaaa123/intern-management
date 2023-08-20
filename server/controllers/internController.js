@@ -42,13 +42,11 @@ exports.createIntern = asyncHandler(async (req, res, next) => {
     res.status(400).json({error: "User already exists"})
   }
 
-  const hashedPassword = await bcrypt.hash(password, 10);
-
   const newIntern = await User.create({
     firstname: firstname,
     lastname: lastname,
     email: email,
-    password: hashedPassword ,
+    password: password ,
     role:"intern"
 });
   res.status(201).json({ success: true, data: newIntern });
