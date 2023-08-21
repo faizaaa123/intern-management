@@ -9,7 +9,11 @@ const {
 } = require("../controllers/requestController");
 const requestRouter = express.Router();
 
-requestRouter.route("/").get(getRequests).post(createRequest);
+requestRouter
+  .route("/")
+  .get(getRequests)
+  .get(getLeaveRequestsByStatus)
+  .post(createRequest);
 requestRouter
   .route("/:id")
   .get(getRequest)

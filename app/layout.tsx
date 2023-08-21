@@ -1,4 +1,6 @@
 import './globals.css'
+import "bootstrap/dist/css/bootstrap.min.css"; // Import bootstrap CSS
+
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 

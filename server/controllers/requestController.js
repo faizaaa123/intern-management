@@ -1,13 +1,22 @@
-//@desc get all leave Requests
-//@route GET /api/v1/leaveRequests
-// @access Private
 const ErrorResponse = require("../utils/errorResponse");
 const LeaveRequest = require("../models/leaveRequestModel");
 const asyncHandler = require("../middleware/async");
 const User = require("../models/userModel");
 // const User = require("../models/userModel");
 
+//@desc get all leave Requests
+//@route GET /api/v1/requests
+// @access Private
 exports.getRequests = asyncHandler(async (req, res, next) => {
+  const allRequests = await LeaveRequest.find();
+  res
+    .status(200)
+    .json({ success: true, count: allRequests.length, data: allRequests });
+});
+
+//@desc get all requests by status
+//@route GET /api/v1/requests?Status=''
+exports.getLeaveRequestsByStatus = asyncHandler(async (req, res, next) => {
   const { status } = req.query;
   const requests = await LeaveRequest.find({ status });
   if (!requests) {

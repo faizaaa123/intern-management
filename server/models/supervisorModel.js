@@ -20,6 +20,10 @@ const supervisorSchema = new mongoose.Schema({
     ],
     unique: true,
   },
+  role: {
+    type: String,
+    default: "Supervisor",
+  },
   interns: [],
 });
 

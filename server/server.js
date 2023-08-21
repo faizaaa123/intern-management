@@ -3,6 +3,7 @@ const express = require("express");
 const internRouter = require("./routes/internRoute");
 const requestRouter = require("./routes/requestRoute");
 const supervisorRouter = require("./routes/supervisorRoute");
+const ErrorResponse = require("./utils/errorResponse");
 
 const User = require("./models/userModel");
 const LeaveRequest = require("./models/leaveRequestModel");
@@ -12,7 +13,7 @@ const errorHandler = require("./middleware/error");
 const app = express();
 const dotenv = require("dotenv");
 
-dotenv.config({ path: ".env" });
+dotenv.config({ path: "./config/.env" });
 
 const cors = require("cors");
 
@@ -50,7 +51,7 @@ app.use("/api/v1/requests", requestRouter);
 app.use("/api/v1/supervisors", supervisorRouter);
 
 //creating get requests associated with a user
-app.get("/api/v1/:id/requests", async (req, res) => {
+app.get("/api/v1/:id/requests", async (req, res, next) => {
   const user = await User.findById(req.params.id);
   if (!user) {
     return next(
@@ -65,7 +66,7 @@ app.get("/api/v1/:id/requests", async (req, res) => {
 });
 
 //creating get requests associated with supervisor (supervisors can access all interns associated with them)
-app.get("/api/v1/:id/interns", async (req, res) => {
+app.get("/api/v1/:id/interns", async (req, res, next) => {
   const supervisor = await Supervisor.findById(req.params.id);
   if (!supervisor) {
     return next(

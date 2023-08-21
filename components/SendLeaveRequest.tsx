@@ -1,11 +1,12 @@
 "use client"
 import React, { useState } from 'react';
-
+import { useRouter } from 'next/navigation';
 const SendLeaveRequest = ({ internId }) => {
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
   const [reason, setReason] = useState('');
   const [additonal, setAdditonal] = useState('')
+  const router = useRouter();
 
   const handleSendRequest = async () => {
     try {
@@ -27,6 +28,8 @@ const SendLeaveRequest = ({ internId }) => {
     } catch (error) {
       console.error('Error:', error.message);
     }
+    router.push('/requests');
+
   };
 
   return (
