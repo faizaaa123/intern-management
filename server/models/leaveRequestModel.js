@@ -1,31 +1,34 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
+// const { unique } = require("next/dist/build/utils");
 
 const leaveRequestSchema = new mongoose.Schema({
   user: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'User', // Reference to the User collection for the requesting user
-    required: true
+    ref: "User",
+    required: true,
   },
   start_date: {
     type: Date,
-    required: true
+    required: true,
   },
   end_date: {
     type: Date,
-    required: true
+    required: true,
   },
   status: {
     type: String,
-    enum: ['pending', 'approved', 'rejected'],
-    default: 'pending'
+    enum: ["pending", "approved", "rejected"],
+    default: "pending",
   },
   reason: {
     type: String,
-    required: true
+    required: true,
   },
-  additional_notes: String // Optional additional notes
+  additional_notes: {
+    type: String
+  }
 });
 
-const LeaveRequest = mongoose.model('LeaveRequest', leaveRequestSchema);
+const LeaveRequest = mongoose.model("LeaveRequest", leaveRequestSchema);
 
 module.exports = LeaveRequest;

@@ -8,7 +8,7 @@ dotenv.config({ path: "./config/.env" });
 const LeaveRequest = require("./server/models/leaveRequestModel");
 
 //Connect to DB
-mongoose.connect(process.env.Mongo_TEST_URI, {
+mongoose.connect(process.env.Mongo_DB_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });

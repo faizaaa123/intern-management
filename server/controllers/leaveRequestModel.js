@@ -1,5 +1,5 @@
 const ErrorResponse = require("../utils/errorResponse");
-const LeaveRequest = require("../models/leaveRequestModel"); // Import your LeaveRequest model
+const LeaveRequest = require("../../models/leaveRequestModel"); // Import your LeaveRequest model
 const asyncHandler = require("../middleware/async");
 
 //@desc get all leave requests

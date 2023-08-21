@@ -4,7 +4,8 @@
 const ErrorResponse = require("../utils/errorResponse");
 const User = require("../models/userModel");
 const asyncHandler = require("../middleware/async");
-const bcrypt = require("bcrypt")
+const bcrypt = require("bcrypt");
+const Supervisor = require("../models/supervisorModel");
 
 exports.getAllInterns = asyncHandler(async (req, res, next) => {
   const interns = await User.find();
@@ -22,10 +23,21 @@ exports.getOneIntern = asyncHandler(async (req, res, next) => {
   }
   res.status(200).json({ success: true, data: intern });
 });
+// get by email
+exports.getByEmailIntern = asyncHandler(async (req, res, next) => {
+    const intern = await User.findOne({email: req.params.email});
+    if (!intern) {
+      return next(
+        new ErrorResponse(`Intern not found with an email of ${req.params.email}`, 404)
+      );
+    }
+    res.status(200).json({ success: true, data: intern });
+  });
 
 //@desc Create intern
 //@route POST /api/v1/interns
 // @access Private - only registered users can create.
+//TODO4: Modify it back to allowlisting (email, firstname, lastname and role)
 exports.createIntern = asyncHandler(async (req, res, next) => {
 
   const {email , firstname, lastname, password } = req.body.userData
@@ -56,17 +68,31 @@ exports.createIntern = asyncHandler(async (req, res, next) => {
 //@route PUT /api/v1/interns/:id
 // @access Private
 exports.updateIntern = asyncHandler(async (req, res, next) => {
-  const {firstname,lastname,internRole,supervisor} = req.body
-  const intern = await User.findByIdAndUpdate(req.params.id, {firstname,lastname,internRole,supervisor})({
-    new: true,
-    runValidators: true,
-  });
-  if (!intern) {
-    return next(
-      new ErrorResponse(`Intern not found with an id of ${req.params.id}`, 404)
+  try {
+    const updatedIntern = await User.findOneAndUpdate(
+      { _id: req.params.id },
+      {
+        $set: {
+          firstname: req.body.firstname,
+          lastname: req.body.lastname,
+          email: req.body.email,
+          internRole: req.body.internRole,
+        },
+      },
+      { new: true }
     );
+
+    if (!updatedIntern) {
+      return next(
+        new ErrorResponse(`Intern not found with an id of ${req.params.id}`, 404)
+      );
+    }
+
+    res.status(200).json({ success: true, data: updatedIntern });
+  } catch (error) {
+    console.error('Error updating intern:', error);
+    res.status(500).json({ success: false, error: 'Error updating intern profile' });
   }
-  res.status(200).json({ success: true, data: intern });
 });
 
 //@desc delete one intern

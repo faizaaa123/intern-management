@@ -5,6 +5,7 @@ const {
   createIntern,
   updateIntern,
   deleteIntern,
+  getByEmailIntern
 } = require("../controllers/internController");
 const internRouter = express.Router();
 
@@ -14,5 +15,7 @@ internRouter
   .get(getOneIntern)
   .put(updateIntern)
   .delete(deleteIntern);
+
+internRouter.route("/email/:email").get(getByEmailIntern)
 
 module.exports = internRouter;

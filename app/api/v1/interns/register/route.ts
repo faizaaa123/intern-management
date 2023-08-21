@@ -1,4 +1,4 @@
-import User from "@/server/models/userModel";
+import User from "../../../../../server/models/userModel";
 import bcrypt from "bcrypt";
 import { NextResponse } from "next/server";
 
@@ -12,9 +12,9 @@ export async function POST (request) {
       return new NextResponse("All fields are required. Please fill in the missing fields.", {status: 400})
     }
   
-    const exists = await User.findOne({where: {
+    const exists = await User.findOne({
       email: email
-    }})
+    })
   
     if(exists) {
         return new NextResponse("User already exists", {status: 400})

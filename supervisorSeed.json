@@ -1,0 +1,35 @@
+
+    [
+      {
+        "firstname": "John",
+        "lastname": "Doe",
+        "email": "john.doe@example.com",
+        "interns": []
+      },
+      {
+        "firstname": "Jane",
+        "lastname": "Smith",
+        "email": "jane.smith@example.com",
+        "interns": []
+      },
+      {
+        "firstname": "Michael",
+        "lastname": "Johnson",
+        "email": "michael.johnson@example.com",
+        "interns": []
+      },
+      {
+        "firstname": "Emily",
+        "lastname": "Williams",
+        "email": "emily.williams@example.com",
+        "interns": []
+      },
+      {
+        "firstname": "David",
+        "lastname": "Brown",
+        "email": "david.brown@example.com",
+        "interns": []
+      }
+    ]
+
+  

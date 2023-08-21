@@ -1,11 +1,8 @@
 
 import type {NextAuthOptions} from "next-auth";
-import NextAuth from "next-auth/next";
 import CredentialsProvider from "next-auth/providers/credentials";
-import { type } from "os";
-import {connectToMongoDB} from "../../../../library/connectToMongoDB"
-import User from "../../../../server/models/userModel"
-import bcrypt from "bcrypt"
+import {connectToMongoDB} from "../../../../library/connectToMongoDB";
+const User = require("../../../../server/models/userModel");
 require("dotenv").config()
 
 export const options: NextAuthOptions = {
@@ -38,32 +35,31 @@ export const options: NextAuthOptions = {
                 // this is where you retreive  user info from databse.
                 // check out the doc here: https://next-auth.js.org/configuration/providers/credentials
 
-                // Code that is throw error due to user schema
+                console.log(credentials)
 
                 if(!credentials?.email || !credentials.password) {
-                    return new Response("Missing name, email, or password", { status: 400 });
+                    return null
+                    // throw new Response("Missing email, or password", { status: 400 });
                 }
 
                 await connectToMongoDB().catch((error) => {throw new Error(error)})
 
-                const user = await User.findOne({where: {
+
+                //not recognising this is a model
+                const user = await User.findOne({
                     email: credentials?.email
-                }})
+                })
 
                 if(!user) {
-                    return new Response("Incorrect email provided.", {status: 400})
+                    return null
                 }
-                
+
+                if(user.password !== credentials.password) {
+                    return null
+                }
+
                 // return user object if everything is valid
                 return user;
-
-                // const user = {id: 500, email: "applecrumble@gmail.com", password: "Crumble"}
-
-                // if(credentials?.email === user.email && credentials?.password === user.password) {
-                //     return user
-                // } else {
-                //     return null
-                // }
             
         }}),
     ],
