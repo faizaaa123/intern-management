@@ -90,6 +90,8 @@ export const options: NextAuthOptions = {
                 return {
                     ...token,
                     id: user.id,
+                    firstname: user.firstname,
+                    lastname: user.lastname,
                     accessToken: signJwtAccessToken({user})
                     // name: user.firstname
                 }
@@ -106,6 +108,8 @@ export const options: NextAuthOptions = {
                 user: {
                     ...session.user,
                     id: token.id,
+                    firstname: token.firstname,
+                    lastname: token.lastname,
                     accessToken: signJwtAccessToken({user})
                 }
             };

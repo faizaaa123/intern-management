@@ -23,7 +23,7 @@ export default function HomePage() {
     {session?.user ? (
 
       <>
-      <h1>Hello! You Made it {session?.user?.name}!!</h1>
+      <h1>Hello! You Made it {session?.user?.firstname}!!</h1>
       <button onClick={signOutUser}>Sign out</button>
       </>
     
