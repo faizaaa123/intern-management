@@ -2,8 +2,11 @@
 import type {NextAuthOptions} from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import {connectToMongoDB} from "../../../../library/connectToMongoDB";
+import { signJwtAccessToken } from "@/library/jwt";
 const User = require("../../../../server/models/userModel");
 require("dotenv").config()
+
+// let accessToken : string;
 
 export const options: NextAuthOptions = {
     providers: [
@@ -45,7 +48,7 @@ export const options: NextAuthOptions = {
                 await connectToMongoDB().catch((error) => {throw new Error(error)})
 
 
-                //not recognising this is a model
+                
                 const user = await User.findOne({
                     email: credentials?.email
                 })
@@ -58,6 +61,16 @@ export const options: NextAuthOptions = {
                     return null
                 }
 
+                // payload needs to be a plain object, so must pass through {} as `user` is coming from mongoose
+                // accessToken = signJwtAccessToken({user});
+
+                // const result = {
+                //     ...user,
+                //     accessToken
+                // }
+
+                // console.log(result)
+
                 // return user object if everything is valid
                 return user;
             
@@ -66,6 +79,37 @@ export const options: NextAuthOptions = {
     session : {
         strategy: "jwt",
 
+    },
+    callbacks: {
+        jwt: async ({token, user, session}) => {
+            console.log("jwt callback ", {token, user, session})
+            // if(user) token.user = user;
+
+            if(user) {
+                // pass in user id to token
+                return {
+                    ...token,
+                    id: user.id,
+                    accessToken: signJwtAccessToken({user})
+                    // name: user.firstname
+                }
+            }
+            return token
+        },
+        session: async({session, token, user}) => {
+            if(session.user) 
+            // session.user.name = token.user.firstname
+            // pass user.id to the session
+            console.log("session callback ", {session, token, user})
+            return {
+                ...session,
+                user: {
+                    ...session.user,
+                    id: token.id,
+                    accessToken: signJwtAccessToken({user})
+                }
+            };
+        },
     },
     secret: process.env.NEXTAUTH_SECRET,
     debug: process.env.NODE_ENV === "development"

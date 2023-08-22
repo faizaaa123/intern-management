@@ -1,12 +1,15 @@
 "use client"
 
 import React from 'react'
-import {signOut} from "next-auth/react"
+import {signOut, useSession} from "next-auth/react"
 import { useRouter } from 'next/navigation'
 
 export default function HomePage() {
 
   const router = useRouter()
+  const {data: session} = useSession()
+
+  console.log({session})
 
   function signOutUser() {
     signOut({
@@ -17,8 +20,21 @@ export default function HomePage() {
 
   return (
     <>
-    <h1>Hello! You Made it!!</h1>
-    <button onClick={signOutUser}>Sign out</button>
+    {session?.user ? (
+
+      <>
+      <h1>Hello! You Made it {session?.user?.name}!!</h1>
+      <button onClick={signOutUser}>Sign out</button>
+      </>
+    
+    ) : (
+
+      <>
+      <p>Loading</p>
+      </>
+    )
+    
+    }  
     </>
   )
 }
