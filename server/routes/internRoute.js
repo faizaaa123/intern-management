@@ -16,6 +16,4 @@ internRouter
   .put(updateIntern)
   .delete(deleteIntern);
 
-internRouter.route("/email/:email").get(getByEmailIntern)
-
 module.exports = internRouter;

@@ -6,8 +6,14 @@ const User = require("../models/userModel");
 const asyncHandler = require("../middleware/async");
 const bcrypt = require("bcrypt");
 const Supervisor = require("../models/supervisorModel");
+const verifyJwtAccessToken = require("../middleware/verifyjwt")
 
 exports.getAllInterns = asyncHandler(async (req, res, next) => {
+    const accessToken = req.header("Authorization");
+    if (!accessToken || !verifyJwtAccessToken(accessToken)) {
+        return res.status(401).json({ error: 'Unauthorized' });
+      }
+      
   const interns = await User.find();
   res.status(200).json({ success: true, count: interns.length, data: interns });
 });
@@ -15,7 +21,7 @@ exports.getAllInterns = asyncHandler(async (req, res, next) => {
 //@route GET /api/v1/interns/:id
 // @access Private
 exports.getOneIntern = asyncHandler(async (req, res, next) => {
-  const intern = await User.findById(req.params.id);
+    const intern = await User.findById(req.params.id);
   if (!intern) {
     return next(
       new ErrorResponse(`Intern not found with an id of ${req.params.id}`, 404)
@@ -23,16 +29,6 @@ exports.getOneIntern = asyncHandler(async (req, res, next) => {
   }
   res.status(200).json({ success: true, data: intern });
 });
-// get by email
-exports.getByEmailIntern = asyncHandler(async (req, res, next) => {
-    const intern = await User.findOne({email: req.params.email});
-    if (!intern) {
-      return next(
-        new ErrorResponse(`Intern not found with an email of ${req.params.email}`, 404)
-      );
-    }
-    res.status(200).json({ success: true, data: intern });
-  });
 
 //@desc Create intern
 //@route POST /api/v1/interns
