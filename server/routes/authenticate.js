@@ -1,6 +1,8 @@
 const jwt = require("jsonwebtoken");
 const dotenv = require("dotenv");
 
+
+// keycloak nonsense IGNORE, WILL CHANGE IN FUTURE USING AUTH0
 dotenv.config()
 
 //creating middleware that varifies a user based on their token

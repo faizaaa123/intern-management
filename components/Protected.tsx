@@ -5,34 +5,35 @@ export default function Protected({token}: {token: string | undefined}) {
 
     const [profile, setProfile] = useState();
 
-    useEffect(()=> {
+    // useEffect(()=> {
 
-    const config = {
-        headers: {
-            authorization: `Bearer ${token}`
-        }
-    }
+    // const config = {
+    //     headers: {
+    //         authorization: `Bearer ${token}`
+    //     }
+    // }
 
-        const getProfile = async () => {
+    //     const getProfile = async () => {
 
-            try {
-                const response = await fetch("http://localhost:5000/profile", config);
-                const data = response.json()
-                console.log(data); 
-                setProfile(await data);  
-            } catch (error) {
-                console.log(error);
-            }
+    //         try {
+    //             const response = await fetch("http://localhost:5000/profile", config);
+    //             const data = response.json()
+    //             console.log(data); 
+    //             setProfile(await data);  
+    //         } catch (error) {
+    //             console.log(error);
+    //         }
             
-        }
-        getProfile()
-    }, [])
+    //     }
+    //     getProfile()
+    // }, [])
 
 
   return (
     <>
     <h1>Protected</h1>
-    {profile && profile.map((item: string, i: number)=> <h2 key = {i}>{item}</h2>)}
+    <p>this is the protected page.</p>
+    {/* {profile && profile.map((item: string, i: number)=> <h2 key = {i}>{item}</h2>)} */}
     </>
     
 

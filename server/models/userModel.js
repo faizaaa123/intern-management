@@ -1,4 +1,6 @@
 const mongoose = require("mongoose");
+const Schema = require("seed/lib/seed/schema");
+const slugify = require("slugify");
 
 const userSchema = new mongoose.Schema({
   firstname: {
@@ -44,6 +46,14 @@ const userSchema = new mongoose.Schema({
   },
   leaveRequests: [],
 });
+
+//Create user slug from schema
+
+// userSchema.pre("save", function (next) {
+//   this.slug = slugify(this.name, { lower: true });
+//   next();
+// });
+
 const User = mongoose.model("User", userSchema);
 
 module.exports = User;

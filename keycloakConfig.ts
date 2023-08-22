@@ -10,9 +10,9 @@ const {
 } = process.env
 
 const keycloakConfig = {
-  realm: KEYCLOAK_REALM,
-  clientId: KEYCLOAK_CLIENT_ID,
-  url: KEYCLOAK_URL,
+  realm: "intern-manage-realm",
+  clientId: "myclient",
+  url: "http://localhost:8080/",
   "enable-cors": true,
 };
 

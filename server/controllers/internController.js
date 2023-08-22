@@ -4,6 +4,7 @@
 const ErrorResponse = require("../utils/errorResponse");
 const User = require("../models/userModel");
 const asyncHandler = require("../middleware/async");
+const bcrypt = require("bcrypt");
 const Supervisor = require("../models/supervisorModel");
 
 exports.getAllInterns = asyncHandler(async (req, res, next) => {
@@ -22,22 +23,44 @@ exports.getOneIntern = asyncHandler(async (req, res, next) => {
   }
   res.status(200).json({ success: true, data: intern });
 });
+// get by email
+exports.getByEmailIntern = asyncHandler(async (req, res, next) => {
+    const intern = await User.findOne({email: req.params.email});
+    if (!intern) {
+      return next(
+        new ErrorResponse(`Intern not found with an email of ${req.params.email}`, 404)
+      );
+    }
+    res.status(200).json({ success: true, data: intern });
+  });
 
 //@desc Create intern
 //@route POST /api/v1/interns
 // @access Private - only registered users can create.
 //TODO4: Modify it back to allowlisting (email, firstname, lastname and role)
 exports.createIntern = asyncHandler(async (req, res, next) => {
-  const newIntern = await User.create(req.body);
 
-  if (newIntern.supervisor) {
-    const supervisor = await Supervisor.findById(newIntern.supervisor);
-
-    if (supervisor) {
-      supervisor.interns.push(newIntern);
-      await supervisor.save();
-    }
+  const {email , firstname, lastname, password } = req.body.userData
+  
+  if (!firstname || !lastname || !email || !password) {
+    res.status(400).json({error: "All fields are required. Please fill in the missing fields."})
   }
+
+  const exists = await User.findOne({where: {
+    email: email
+  }})
+
+  if(exists) {
+    res.status(400).json({error: "User already exists"})
+  }
+
+  const newIntern = await User.create({
+    firstname: firstname,
+    lastname: lastname,
+    email: email,
+    password: password ,
+    role:"intern"
+});
   res.status(201).json({ success: true, data: newIntern });
 });
 
@@ -45,15 +68,31 @@ exports.createIntern = asyncHandler(async (req, res, next) => {
 //@route PUT /api/v1/interns/:id
 // @access Private
 exports.updateIntern = asyncHandler(async (req, res, next) => {
-  const intern = await User.findById(req.params.id);
-  if (!intern) {
-    return next(
-      new ErrorResponse(`Intern not found with an id of ${req.params.id}`, 404)
+  try {
+    const updatedIntern = await User.findOneAndUpdate(
+      { _id: req.params.id },
+      {
+        $set: {
+          firstname: req.body.firstname,
+          lastname: req.body.lastname,
+          email: req.body.email,
+          internRole: req.body.internRole,
+        },
+      },
+      { new: true }
     );
+
+    if (!updatedIntern) {
+      return next(
+        new ErrorResponse(`Intern not found with an id of ${req.params.id}`, 404)
+      );
+    }
+
+    res.status(200).json({ success: true, data: updatedIntern });
+  } catch (error) {
+    console.error('Error updating intern:', error);
+    res.status(500).json({ success: false, error: 'Error updating intern profile' });
   }
-  await User.updateOne(intern, req.body);
-  const updatedIntern = await User.findById(req.params.id);
-  res.status(200).json({ success: true, data: updatedIntern });
 });
 
 //@desc delete one intern
