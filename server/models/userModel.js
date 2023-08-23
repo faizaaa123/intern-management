@@ -31,6 +31,10 @@ const userSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "Supervisor",
   },
+  role: {
+    type: String,
+    default: "Intern",
+  },
   internRole: {
     type: String, // Enum: 'project manager', 'software engineer', etc.
     enum: ["project manager", "software engineer"],
