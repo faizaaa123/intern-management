@@ -1,6 +1,18 @@
-import React from 'react'
-import Link from 'next/link'
-function page() {
+// pages/_app.tsx
+import AuthProviderWithHistory from "../auth0provider";
+import { useEffect, useState } from 'react';
+import { useAuth0 } from '@auth0/auth0-react';
+
+
+// import Public from '../components/Public';
+// import Protected from '../components/Protected';
+// import keycloak from '../keycloakConfig';
+
+import Public from '@/components/Public';
+
+
+const MyApp: React.FC = () => {
+
   return (
     <div>
       {isAuthenticated ? <Protected token = {token}/> : <Public />}
@@ -8,4 +20,4 @@ function page() {
   );
 };
 
-export default page
+export default MyApp
