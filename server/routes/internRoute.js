@@ -1,4 +1,7 @@
 const express = require("express");
+const verifyAccessToken = require("../middleware/verifyjwt")
+
+
 const {
   getAllInterns,
   getOneIntern,
@@ -9,7 +12,7 @@ const {
 } = require("../controllers/internController");
 const internRouter = express.Router();
 
-internRouter.route("/").get(getAllInterns).post(createIntern);
+internRouter.route("/").get(verifyAccessToken, getAllInterns).post(createIntern);
 internRouter
   .route("/:id")
   .get(getOneIntern)

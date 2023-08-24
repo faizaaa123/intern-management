@@ -11,15 +11,23 @@ const verifyJwtAccessToken = require("../middleware/verifyjwt")
 exports.getAllInterns = asyncHandler(async (req, res, next) => {
 
     // middleware for varifying access tokens
-    const accessToken = req.header("Authorization");
-    if (!accessToken || !verifyJwtAccessToken(accessToken)) {
-        return res.status(401).json({ error: 'Unauthorized' });
-      }
-    const decoded = verifyJwtAccessToken(accessToken)
-    console.log("this is the decoded token ",decoded)
+    // const accessToken = req.header("Authorization");
+    // if (!accessToken || !verifyJwtAccessToken(accessToken)) {
+    //     return res.status(401).json({ error: 'Unauthorized' });
+    //   }
+    // const decoded = verifyJwtAccessToken(accessToken)
+    // console.log("this is the decoded token ",decoded)
 
-    if(decoded.user.role !== "Supervisor") {
-        return res.status(401).json({ error: 'Unauthorized' });
+    // if(decoded.user.role !== "Supervisor") {
+    //     return res.status(401).json({ error: 'Unauthorized' });
+    // }
+
+    const data = req.user;
+
+    console.log("this is req.user.role ", data)
+
+    if(data.user.role !== "Supervisor") {
+            return res.status(401).json({ error: 'Unauthorized' });
     }
       
   const interns = await User.find();
