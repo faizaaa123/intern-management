@@ -10,20 +10,6 @@ export default function HomePage() {
   const router = useRouter()
   const {data: session} = useSession()
 
-  useEffect(() => {
-    function redirectUser() {
-      if (session) {
-        if (session.user.role === 'Supervisor') {
-          router.push('/dashbord/supervisor/homepage');
-        } else {
-          return
-        }
-      }
-    }
-
-    redirectUser();
-  }, [session, router]);
-
   console.log({session})
 
   function signOutUser() {
