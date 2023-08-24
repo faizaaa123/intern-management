@@ -9,6 +9,8 @@ const Supervisor = require("../models/supervisorModel");
 const verifyJwtAccessToken = require("../middleware/verifyjwt")
 
 exports.getAllInterns = asyncHandler(async (req, res, next) => {
+
+    // middleware for varifying access tokens
     const accessToken = req.header("Authorization");
     if (!accessToken || !verifyJwtAccessToken(accessToken)) {
         return res.status(401).json({ error: 'Unauthorized' });
@@ -21,7 +23,14 @@ exports.getAllInterns = asyncHandler(async (req, res, next) => {
 //@route GET /api/v1/interns/:id
 // @access Private
 exports.getOneIntern = asyncHandler(async (req, res, next) => {
+
+    const accessToken = req.header("Authorization");
+    if (!accessToken || !verifyJwtAccessToken(accessToken)) {
+        return res.status(401).json({ error: 'Unauthorized' });
+      }
+
     const intern = await User.findById(req.params.id);
+    
   if (!intern) {
     return next(
       new ErrorResponse(`Intern not found with an id of ${req.params.id}`, 404)

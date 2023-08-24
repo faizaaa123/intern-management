@@ -26,7 +26,10 @@ export default function HomePage() {
       <>
       <h1>Hello! You Made it {session?.user?.firstname}!!</h1>
       <button onClick={signOutUser}>Sign out</button>
+      <br />
       <Link href={"/dashbord/profile"}>My Profile</Link>
+      <br />
+      <Link href={"/dashbord/requests"}>Requests</Link>
       </>
     
     ) : (

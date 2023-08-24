@@ -4,6 +4,7 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import {connectToMongoDB} from "../../../../library/connectToMongoDB";
 import { signJwtAccessToken } from "@/library/jwt";
 const User = require("../../../../server/models/userModel");
+const Supervisor = require("../../../../server/models/supervisorModel");
 require("dotenv").config()
 
 // let accessToken : string;
@@ -50,6 +51,8 @@ export const options: NextAuthOptions = {
 
                 
                 const user = await User.findOne({
+                    email: credentials?.email
+                }) || await Supervisor.findOne({
                     email: credentials?.email
                 })
 
