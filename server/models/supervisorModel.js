@@ -20,9 +20,18 @@ const supervisorSchema = new mongoose.Schema({
     ],
     unique: true,
   },
+  password: {
+    type: String,
+    required: true,
+  },
+  role: {
+    type: String,
+    default: "Supervisor",
+  },
   interns: [],
 });
+mongoose.models = {}
 
-const Supervisor = mongoose.model("Supervisor", supervisorSchema);
+const Supervisor = mongoose.model.Supervisor || mongoose.model("Supervisor", supervisorSchema);
 
 module.exports = Supervisor;
