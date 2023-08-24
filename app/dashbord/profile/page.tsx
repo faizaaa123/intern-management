@@ -34,7 +34,7 @@ export default function Profile() {
     <h2>Lastname: {session?.user.lastname}</h2>
     <h2>Email: {session?.user.email}</h2>
     <br />
-    <Link href={"/dashbord/homepage"}>Back</Link>
+    <Link href={"/dashbord/intern/homepage"}>Back</Link>
     </>
   )
 }

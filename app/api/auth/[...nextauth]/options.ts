@@ -116,7 +116,7 @@ export const options: NextAuthOptions = {
                     firstname: token.firstname,
                     lastname: token.lastname,
                     role: token.role,
-                    accessToken: signJwtAccessToken({user})
+                    accessToken: token.accessToken
                 }
             };
         },

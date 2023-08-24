@@ -15,6 +15,12 @@ exports.getAllInterns = asyncHandler(async (req, res, next) => {
     if (!accessToken || !verifyJwtAccessToken(accessToken)) {
         return res.status(401).json({ error: 'Unauthorized' });
       }
+    const decoded = verifyJwtAccessToken(accessToken)
+    console.log("this is the decoded token ",decoded)
+
+    if(decoded.user.role !== "Supervisor") {
+        return res.status(401).json({ error: 'Unauthorized' });
+    }
       
   const interns = await User.find();
   res.status(200).json({ success: true, count: interns.length, data: interns });
