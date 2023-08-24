@@ -95,6 +95,7 @@ export const options: NextAuthOptions = {
                     id: user.id,
                     firstname: user.firstname,
                     lastname: user.lastname,
+                    role: user.role,
                     accessToken: signJwtAccessToken({user})
                     // name: user.firstname
                 }
@@ -111,8 +112,10 @@ export const options: NextAuthOptions = {
                 user: {
                     ...session.user,
                     id: token.id,
+                    name: `${token.firstname} ${token.lastname}`,
                     firstname: token.firstname,
                     lastname: token.lastname,
+                    role: token.role,
                     accessToken: signJwtAccessToken({user})
                 }
             };
