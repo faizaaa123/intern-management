@@ -27,7 +27,7 @@ export default function RegisterPage() {
         const userInfo = await response.json()
         console.log(userInfo)
         // redirect to login page
-        router.push("/dashbord/homepage")
+        router.push("/dashbord/redirect")
     }
  
     return (

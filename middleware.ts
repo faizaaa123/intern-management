@@ -14,12 +14,12 @@ export default withAuth(
 
     //extra middlewaree for frontend - ensuring users can only access their appropriate routes depending on their role
 
-    if(req.nextUrl.pathname.startsWith("/dashbord/supervisor") && req.nextauth.token?.role !== "Supervisor") {
+    if(req.nextUrl.pathname.startsWith("/dashbord/supervisor") && req.nextauth.token?.role != "Supervisor") {
       // console.log("This is what you are looking for ----------------",req.nextauth.token)
       return NextResponse.rewrite(new URL("/dashbord/intern/homepage?message=You are not authorised",req.url))
     }
 
-    if(req.nextUrl.pathname.startsWith("/dashbord/intern") && req.nextauth.token?.role !== "Intern") {
+    if(req.nextUrl.pathname.startsWith("/dashbord/intern") && req.nextauth.token?.role != "Intern") {
       // console.log("This is what you are looking for ----------------",req.nextauth.token)
       return NextResponse.rewrite(new URL("/dashbord/supervisor/homepage?message=You are not authorised",req.url))
     }

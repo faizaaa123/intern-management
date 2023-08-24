@@ -16,6 +16,9 @@ export default function Profile() {
 
     useEffect(() => {
         async function getProfile() {
+
+            // can get one user like this - ensure to always add an "Authorization" property in header and send the token with it
+            // data received is not used here, but simply demonstrates how you would access backend API in the frontend
             const response = await fetch(`http://localhost:5005/api/v1/interns/${session?.user.id}`, {
                 headers: {
                     'Content-Type': 'application/json',
