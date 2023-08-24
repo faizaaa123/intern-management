@@ -22,13 +22,13 @@ exports.getAllInterns = asyncHandler(async (req, res, next) => {
     //     return res.status(401).json({ error: 'Unauthorized' });
     // }
 
-    const data = req.user;
+    // const data = req.user;
 
-    console.log("this is req.user.role ", data)
+    // console.log("this is req.user.role ", data)
 
-    if(data.user.role !== "Supervisor") {
-            return res.status(401).json({ error: 'Unauthorized' });
-    }
+    // if(data.user.role !== "Supervisor") {
+    //         return res.status(401).json({ error: 'Unauthorized' });
+    // }
       
   const interns = await User.find();
   res.status(200).json({ success: true, count: interns.length, data: interns });
@@ -38,10 +38,10 @@ exports.getAllInterns = asyncHandler(async (req, res, next) => {
 // @access Private
 exports.getOneIntern = asyncHandler(async (req, res, next) => {
 
-    const accessToken = req.header("Authorization");
-    if (!accessToken || !verifyJwtAccessToken(accessToken)) {
-        return res.status(401).json({ error: 'Unauthorized' });
-      }
+    // const accessToken = req.header("Authorization");
+    // if (!accessToken || !verifyJwtAccessToken(accessToken)) {
+    //     return res.status(401).json({ error: 'Unauthorized' });
+    //   }
 
     const intern = await User.findById(req.params.id);
     
