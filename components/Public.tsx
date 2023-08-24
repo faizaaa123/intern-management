@@ -12,6 +12,8 @@ export default function Public() {
     <Link href="/dashbord/redirect">Login</Link>
     <br />
     <Link href="/register">Register</Link>
+    <br />
+    <p>ps: I just realised I spelt "dashboard" wrong in the file structure (I missed the a), but there are too many imports and files that are dependent on the wrong spelling, I cannot be asked to change it :P </p>
     </>
   )
 }

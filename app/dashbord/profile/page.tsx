@@ -4,6 +4,9 @@ import { useSession } from 'next-auth/react'
 import User from '@/server/models/userInterface'
 import Link from 'next/link'
 
+// feel free to create separate profile files for intern and supervisor route so they don't share the same route
+// ie /dashbord/intern/profile and /dashbord/supervisor/profile
+
 export default function Profile() {
 
     const {data: session} = useSession()
