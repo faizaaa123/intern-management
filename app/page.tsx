@@ -14,8 +14,11 @@ import Public from '@/components/Public';
 const MyApp: React.FC = () => {
 
   return (
+    // <div>
+    //   {isAuthenticated ? <Protected token = {token}/> : <Public />}
+    // </div>
     <div>
-      {isAuthenticated ? <Protected token = {token}/> : <Public />}
+      Hello
     </div>
   );
 };
