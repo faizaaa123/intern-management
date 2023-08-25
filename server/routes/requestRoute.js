@@ -1,4 +1,8 @@
 const express = require("express");
+const verifyAccessToken = require("../middleware/verifyjwt");
+const authoriseIntern = require("../middleware/authoriseIntern");
+const authoriseSupervisor = require("../middleware/authoriseSupervisor");
+
 const {
   getRequests,
   getRequest,
@@ -11,14 +15,13 @@ const requestRouter = express.Router();
 
 requestRouter
   .route("/")
-  .get(getRequests)
-  .get(getLeaveRequestsByStatus)
-  .post(createRequest);
+  .get(verifyAccessToken, authoriseSupervisor, getRequests)
+  .post(verifyAccessToken, authoriseIntern, createRequest);
 requestRouter
   .route("/:id")
-  .get(getRequest)
-  .put(updateRequest)
-  .delete(deleteRequest);
+  .get(verifyAccessToken, getRequest)
+  .put(verifyAccessToken, authoriseIntern, updateRequest)
+  .delete(verifyAccessToken, authoriseIntern, deleteRequest);
 
 // requestRouter.route("/:userId").get(getUserRequests);
 module.exports = requestRouter;

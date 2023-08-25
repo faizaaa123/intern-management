@@ -30,7 +30,8 @@ const supervisorSchema = new mongoose.Schema({
   },
   interns: [],
 });
+mongoose.models = {}
 
-const Supervisor = mongoose.model("Supervisor", supervisorSchema);
+const Supervisor = mongoose.model.Supervisor || mongoose.model("Supervisor", supervisorSchema);
 
 module.exports = Supervisor;

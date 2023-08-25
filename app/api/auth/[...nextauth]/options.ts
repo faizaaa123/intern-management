@@ -4,6 +4,7 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import {connectToMongoDB} from "../../../../library/connectToMongoDB";
 import { signJwtAccessToken } from "@/library/jwt";
 const User = require("../../../../server/models/userModel");
+const Supervisor = require("../../../../server/models/supervisorModel");
 require("dotenv").config()
 
 // let accessToken : string;
@@ -51,6 +52,8 @@ export const options: NextAuthOptions = {
                 
                 const user = await User.findOne({
                     email: credentials?.email
+                }) || await Supervisor.findOne({
+                    email: credentials?.email
                 })
 
                 if(!user) {
@@ -92,6 +95,7 @@ export const options: NextAuthOptions = {
                     id: user.id,
                     firstname: user.firstname,
                     lastname: user.lastname,
+                    role: user.role,
                     accessToken: signJwtAccessToken({user})
                     // name: user.firstname
                 }
@@ -108,9 +112,11 @@ export const options: NextAuthOptions = {
                 user: {
                     ...session.user,
                     id: token.id,
+                    name: `${token.firstname} ${token.lastname}`,
                     firstname: token.firstname,
                     lastname: token.lastname,
-                    accessToken: signJwtAccessToken({user})
+                    role: token.role,
+                    accessToken: token.accessToken
                 }
             };
         },

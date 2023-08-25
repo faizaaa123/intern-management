@@ -27,7 +27,7 @@ export async function POST (request) {
       lastname: lastname,
       email: email,
       password: password ,
-      role:"intern"
+    //   role: "Intern"
     });
     
     return NextResponse.json(newIntern)

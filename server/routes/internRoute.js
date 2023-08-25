@@ -1,4 +1,9 @@
 const express = require("express");
+const verifyAccessToken = require("../middleware/verifyjwt");
+const authoriseIntern = require("../middleware/authoriseIntern");
+const authoriseSupervisor = require("../middleware/authoriseSupervisor");
+
+
 const {
   getAllInterns,
   getOneIntern,
@@ -9,11 +14,12 @@ const {
 } = require("../controllers/internController");
 const internRouter = express.Router();
 
-internRouter.route("/").get(getAllInterns).post(createIntern);
+//only authorised supervisors can use this route
+internRouter.route("/").get(verifyAccessToken, authoriseSupervisor, getAllInterns).post(createIntern);
 internRouter
   .route("/:id")
-  .get(getOneIntern)
-  .put(updateIntern)
-  .delete(deleteIntern);
+  .get(verifyAccessToken, getOneIntern) //both supervisor and intern 
+  .put(verifyAccessToken,updateIntern)  // can access these two routes
+  .delete(verifyAccessToken, authoriseSupervisor, deleteIntern); //only superivors can access this route
 
 module.exports = internRouter;
