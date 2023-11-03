@@ -10,7 +10,7 @@ const LeaveRequest = require("./models/leaveRequestModel");
 const Supervisor = require("./models/supervisorModel");
 
 const errorHandler = require("./middleware/error");
-const {auth} = require("express-openid-connect");
+const { auth } = require("express-openid-connect");
 const app = express();
 const dotenv = require("dotenv");
 
@@ -22,7 +22,7 @@ app.use(express.json());
 app.use(cors());
 
 app.use((req, res, next) => {
-  res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000",);
+  res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000");
   res.setHeader("Access-Control-Allow-Methods", "GET, POST, DELETE");
   res.setHeader("Access-Control-Allow-Headers", "Content-Type");
   next();
@@ -80,7 +80,6 @@ app.get("/api/v1/:id/interns", async (req, res, next) => {
   const interns = await User.find({ supervisor: supervisor._id });
   res.status(200).json({ success: true, data: interns });
 });
-
 
 app.use(errorHandler);
 

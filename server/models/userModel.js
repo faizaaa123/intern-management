@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
-const Schema = require("seed/lib/seed/schema");
-const slugify = require("slugify");
+// const Schema = require("seed/lib/seed/schema");
+// const slugify = require("slugify");
 
 const userSchema = new mongoose.Schema({
   firstname: {
