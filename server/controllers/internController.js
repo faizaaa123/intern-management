@@ -6,30 +6,29 @@ const User = require("../models/userModel");
 const asyncHandler = require("../middleware/async");
 const bcrypt = require("bcrypt");
 const Supervisor = require("../models/supervisorModel");
-const verifyJwtAccessToken = require("../middleware/verifyjwt")
+const verifyJwtAccessToken = require("../middleware/verifyjwt");
 
 exports.getAllInterns = asyncHandler(async (req, res, next) => {
+  // middleware for varifying access tokens
+  // const accessToken = req.header("Authorization");
+  // if (!accessToken || !verifyJwtAccessToken(accessToken)) {
+  //     return res.status(401).json({ error: 'Unauthorized' });
+  //   }
+  // const decoded = verifyJwtAccessToken(accessToken)
+  // console.log("this is the decoded token ",decoded)
 
-    // middleware for varifying access tokens
-    // const accessToken = req.header("Authorization");
-    // if (!accessToken || !verifyJwtAccessToken(accessToken)) {
-    //     return res.status(401).json({ error: 'Unauthorized' });
-    //   }
-    // const decoded = verifyJwtAccessToken(accessToken)
-    // console.log("this is the decoded token ",decoded)
+  // if(decoded.user.role !== "Supervisor") {
+  //     return res.status(401).json({ error: 'Unauthorized' });
+  // }
 
-    // if(decoded.user.role !== "Supervisor") {
-    //     return res.status(401).json({ error: 'Unauthorized' });
-    // }
+  // const data = req.user;
 
-    // const data = req.user;
+  // console.log("this is req.user.role ", data)
 
-    // console.log("this is req.user.role ", data)
+  // if(data.user.role !== "Supervisor") {
+  //         return res.status(401).json({ error: 'Unauthorized' });
+  // }
 
-    // if(data.user.role !== "Supervisor") {
-    //         return res.status(401).json({ error: 'Unauthorized' });
-    // }
-      
   const interns = await User.find();
   res.status(200).json({ success: true, count: interns.length, data: interns });
 });
@@ -37,13 +36,12 @@ exports.getAllInterns = asyncHandler(async (req, res, next) => {
 //@route GET /api/v1/interns/:id
 // @access Private
 exports.getOneIntern = asyncHandler(async (req, res, next) => {
+  // const accessToken = req.header("Authorization");
+  // if (!accessToken || !verifyJwtAccessToken(accessToken)) {
+  //     return res.status(401).json({ error: 'Unauthorized' });
+  //   }
 
-    // const accessToken = req.header("Authorization");
-    // if (!accessToken || !verifyJwtAccessToken(accessToken)) {
-    //     return res.status(401).json({ error: 'Unauthorized' });
-    //   }
-
-    const intern = await User.findById(req.params.id);
+  const intern = await User.findById(req.params.id);
   if (!intern) {
     return next(
       new ErrorResponse(`Intern not found with an id of ${req.params.id}`, 404)
@@ -57,28 +55,33 @@ exports.getOneIntern = asyncHandler(async (req, res, next) => {
 // @access Private - only registered users can create.
 //TODO4: Modify it back to allowlisting (email, firstname, lastname and role)
 exports.createIntern = asyncHandler(async (req, res, next) => {
+  const { email, firstname, lastname, password } = req.body;
 
-  const {email , firstname, lastname, password } = req.body.userData
-  
   if (!firstname || !lastname || !email || !password) {
-    res.status(400).json({error: "All fields are required. Please fill in the missing fields."})
+    res
+      .status(400)
+      .json({
+        error: "All fields are required. Please fill in the missing fields.",
+      });
   }
 
-  const exists = await User.findOne({where: {
-    email: email
-  }})
+  const exists = await User.findOne({
+    where: {
+      email: email,
+    },
+  });
 
-  if(exists) {
-    res.status(400).json({error: "User already exists"})
+  if (exists) {
+    res.status(400).json({ error: "User already exists" });
   }
 
   const newIntern = await User.create({
     firstname: firstname,
     lastname: lastname,
     email: email,
-    password: password ,
-    role:"intern"
-});
+    password: password,
+    role: "intern",
+  });
   res.status(201).json({ success: true, data: newIntern });
 });
 
@@ -102,14 +105,19 @@ exports.updateIntern = asyncHandler(async (req, res, next) => {
 
     if (!updatedIntern) {
       return next(
-        new ErrorResponse(`Intern not found with an id of ${req.params.id}`, 404)
+        new ErrorResponse(
+          `Intern not found with an id of ${req.params.id}`,
+          404
+        )
       );
     }
 
     res.status(200).json({ success: true, data: updatedIntern });
   } catch (error) {
-    console.error('Error updating intern:', error);
-    res.status(500).json({ success: false, error: 'Error updating intern profile' });
+    console.error("Error updating intern:", error);
+    res
+      .status(500)
+      .json({ success: false, error: "Error updating intern profile" });
   }
 });
 

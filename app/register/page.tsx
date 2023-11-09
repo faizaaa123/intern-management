@@ -1,5 +1,5 @@
 "use client"
-import React from 'react'
+import React, { SyntheticEvent } from 'react'
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 
@@ -13,7 +13,7 @@ export default function RegisterPage() {
         password: "",
     })
 
-    async function registerUser(e) {
+    async function registerUser(e: SyntheticEvent) {
         e.preventDefault();
 
         const response = await fetch("http://localhost:3000/api/v1/interns/register", {
@@ -27,7 +27,7 @@ export default function RegisterPage() {
         const userInfo = await response.json()
         console.log(userInfo)
         // redirect to login page
-        router.push("/dashbord/redirect")
+        router.push("/dashboard/redirect")
     }
  
     return (

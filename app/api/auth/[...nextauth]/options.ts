@@ -40,11 +40,10 @@ export const options: NextAuthOptions = {
                 // this is where you retreive  user info from databse.
                 // check out the doc here: https://next-auth.js.org/configuration/providers/credentials
 
-                console.log(credentials)
+                // console.log(credentials)
 
                 if(!credentials?.email || !credentials.password) {
                     return null
-                    // throw new Response("Missing email, or password", { status: 400 });
                 }
 
                 await connectToMongoDB().catch((error) => {throw new Error(error)})
@@ -92,7 +91,7 @@ export const options: NextAuthOptions = {
     },
     callbacks: {
         jwt: async ({token, user, session}) => {
-            console.log("jwt callback ", {token, user, session})
+            // console.log("jwt callback ", {token, user, session})
             // if(user) token.user = user;
 
             if(user) {
@@ -110,10 +109,12 @@ export const options: NextAuthOptions = {
             return token
         },
         session: async({session, token, user}) => {
-            if(session.user) 
+            // if(session.user) {
+
+            // }
             // session.user.name = token.user.firstname
             // pass user.id to the session
-            console.log("session callback ", {session, token, user})
+            // console.log("session callback ", {session, token, user})
             return {
                 ...session,
                 user: {

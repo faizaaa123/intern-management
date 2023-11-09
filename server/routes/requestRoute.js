@@ -3,7 +3,6 @@ const verifyAccessToken = require("../middleware/verifyjwt");
 const authoriseIntern = require("../middleware/authoriseIntern");
 const authoriseSupervisor = require("../middleware/authoriseSupervisor");
 
-
 const {
   getRequests,
   getRequest,
@@ -14,7 +13,10 @@ const {
 } = require("../controllers/requestController");
 const requestRouter = express.Router();
 
-requestRouter.route("/").get(verifyAccessToken, authoriseSupervisor, getRequests).post(verifyAccessToken, authoriseIntern, createRequest);
+requestRouter
+  .route("/")
+  .get(verifyAccessToken, authoriseSupervisor, getRequests)
+  .post(verifyAccessToken, authoriseIntern, createRequest);
 requestRouter
   .route("/:id")
   .get(verifyAccessToken, getRequest)

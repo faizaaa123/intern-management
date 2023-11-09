@@ -10,7 +10,7 @@ const verifyAccessToken = (req, res, next) => {
         const secret_key = process.env.SECRET_KEY;
         const decoded = jwt.verify(accessToken, secret_key)
         req.user = decoded
-        console.log(req.user)
+        // console.log(req.user)
         next()
     } catch (error) {
         return res.status(403).json({ error: 'Forbidden: Invalid access token' });

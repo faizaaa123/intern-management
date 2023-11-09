@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-// const UserInterface = require("./userInterface");
 // const Schema = require("seed/lib/seed/schema");
 // const slugify = require("slugify");
 
@@ -59,10 +58,6 @@ const userSchema = new mongoose.Schema({
 //   next();
 // });
 
-
-//clears cache of models - trying to prevent ERROR: Cannot overwrite `User` model once compiled.
-mongoose.models = {}
-
-const User = mongoose.model.User || mongoose.model("User", userSchema);
+const User = mongoose.model("User", userSchema);
 
 module.exports = User;
