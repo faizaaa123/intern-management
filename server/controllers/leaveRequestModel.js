@@ -2,6 +2,8 @@ const ErrorResponse = require("../utils/errorResponse");
 const LeaveRequest = require("../../models/leaveRequestModel"); // Import your LeaveRequest model
 const asyncHandler = require("../middleware/async");
 
+// TODO: create an api that allows users to retrive their list of leave requests
+
 //@desc get all leave requests
 //@route GET /api/v1/leave-requests
 // @access Private

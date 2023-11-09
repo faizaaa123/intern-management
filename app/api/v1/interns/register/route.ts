@@ -20,13 +20,13 @@ export async function POST (request) {
         return new NextResponse("User already exists", {status: 400})
     }
   
-  //   const hashedPassword = await bcrypt.hash(password, 10);
+    const hashedPassword = await bcrypt.hash(password, 10);
   
     const newIntern = await User.create({
       firstname: firstname,
       lastname: lastname,
       email: email,
-      password: password ,
+      password: hashedPassword,
     //   role: "Intern"
     });
     

@@ -44,7 +44,6 @@ exports.getOneIntern = asyncHandler(async (req, res, next) => {
     //   }
 
     const intern = await User.findById(req.params.id);
-    
   if (!intern) {
     return next(
       new ErrorResponse(`Intern not found with an id of ${req.params.id}`, 404)

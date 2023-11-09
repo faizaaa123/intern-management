@@ -3,6 +3,7 @@ import type {NextAuthOptions} from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import {connectToMongoDB} from "../../../../library/connectToMongoDB";
 import { signJwtAccessToken } from "@/library/jwt";
+import bcrypt from "bcrypt";
 const User = require("../../../../server/models/userModel");
 const Supervisor = require("../../../../server/models/supervisorModel");
 require("dotenv").config()
@@ -60,9 +61,15 @@ export const options: NextAuthOptions = {
                     return null
                 }
 
+                const match = await bcrypt.compare(credentials.password, user.password)
+
                 if(user.password !== credentials.password) {
                     return null
                 }
+
+                // if(!match) {
+                //     return null
+                // }
 
                 // payload needs to be a plain object, so must pass through {} as `user` is coming from mongoose
                 // accessToken = signJwtAccessToken({user});

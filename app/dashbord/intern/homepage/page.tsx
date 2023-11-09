@@ -29,7 +29,7 @@ export default function HomePage() {
       <br />
       <Link href={"/dashbord/profile"}>My Profile</Link>
       <br />
-      <Link href={"/dashbord/requests"}>Requests</Link>
+      <Link href={"/dashbord/intern/requests"}>Requests</Link>
       </>
     
     ) : (
