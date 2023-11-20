@@ -5,7 +5,7 @@ interface SignOption {
 }
 
 const DefaultSignOption: SignOption = {
-    expiresIn: "1h"
+    expiresIn: "10s"
 }
 
 const DefaultRefreshOption: SignOption = {
