@@ -2,7 +2,7 @@
 import type {NextAuthOptions} from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import {connectToMongoDB} from "../../../../library/connectToMongoDB";
-import { signJwtAccessToken } from "@/library/jwt";
+import { signJwtAccessToken, signJwtRefreshToken } from "@/library/jwt";
 import bcrypt from "bcrypt";
 const User = require("../../../../server/models/userModel");
 const Supervisor = require("../../../../server/models/supervisorModel");
@@ -102,7 +102,8 @@ export const options: NextAuthOptions = {
                     firstname: user.firstname,
                     lastname: user.lastname,
                     role: user.role,
-                    accessToken: signJwtAccessToken({user})
+                    accessToken: signJwtAccessToken({user}),
+                    refreshToken: signJwtRefreshToken({user})
                     // name: user.firstname
                 }
             }
@@ -124,7 +125,8 @@ export const options: NextAuthOptions = {
                     firstname: token.firstname,
                     lastname: token.lastname,
                     role: token.role,
-                    accessToken: token.accessToken
+                    accessToken: token.accessToken,
+                    refreshToken: token.refreshToken
                 }
             };
         },

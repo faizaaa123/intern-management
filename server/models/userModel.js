@@ -27,6 +27,12 @@ const userSchema = new mongoose.Schema({
     ],
     unique: true,
   },
+  accessToken: {
+    type: String,
+  },
+  refreshToken: {
+    type: String,
+  },
   supervisor: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Supervisor",

@@ -68,7 +68,7 @@ const page = () => {
             >
             {
               data.map((supervisor) => {
-                 return <MenuItem value={1}>{supervisor.firstname}
+                 return <MenuItem value={1}>{supervisor["firstname"]}
                  </MenuItem>
               })
   

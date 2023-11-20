@@ -51,7 +51,7 @@ export default function page() {
             >
             {
               data.map((supervisor, index) => {
-                 return <MenuItem key={index} value={1}>{supervisor.firstname}
+                 return <MenuItem key={index} value={1}>{supervisor["firstname"]}
                  </MenuItem>
               })
   

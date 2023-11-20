@@ -5,6 +5,8 @@ interface User {
   password: string;
   lastname: string;
   email: string;
+  accessToken?: string;
+  refreshToken?: string;
   supervisor: mongoose.Types.ObjectId;
   internRole: 'project manager' | 'software engineer';
   last_checkin?: Date;

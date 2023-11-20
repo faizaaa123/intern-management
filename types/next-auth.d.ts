@@ -8,7 +8,8 @@ declare module "next-auth" {
             lastname?: string,
             email: string,
             role?: string,
-            accessToken: string
+            accessToken: string,
+            refreshToken: string
         }
     }
 
@@ -18,6 +19,7 @@ declare module "next-auth" {
         lastname: string,
         email: string,
         role: string,
-        accessToken: string
+        accessToken: string,
+        refreshToken: string
     }
 }
