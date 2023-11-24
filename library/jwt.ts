@@ -5,11 +5,11 @@ interface SignOption {
 }
 
 const DefaultSignOption: SignOption = {
-    expiresIn: "10s"
+    expiresIn: "10s" //access tokens usually last 15mins
 }
 
 const DefaultRefreshOption: SignOption = {
-    expiresIn: "7d"
+    expiresIn: "7d" //refresh tokens last for 7/10/14 days??
 }
 
 export function signJwtAccessToken(payload: JwtPayload, options: SignOption = DefaultSignOption) {

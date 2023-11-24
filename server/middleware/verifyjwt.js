@@ -13,6 +13,7 @@ const verifyAccessToken = (req, res, next) => {
         // console.log(req.user)
         next()
     } catch (error) {
+        console.log(error)
         return res.status(403).json({ error: 'Forbidden: Invalid access token' });
     }
 

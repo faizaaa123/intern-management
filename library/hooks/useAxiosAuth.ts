@@ -28,7 +28,7 @@ const useAxiosAuth = () => {
 
                     await refreshToken()
 
-                    prevRequest.headers["Authorization"] = `${session?.user.accessToken}`
+                    prevRequest.headers["Authorization"] = `${localStorage.getItem("accessToken")}`
 
                     return axiosAuth(prevRequest);
                 }

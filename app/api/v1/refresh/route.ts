@@ -17,8 +17,9 @@ export async function POST(req: NextRequest, res: NextResponse) {
             }
             
             try {
-                // Decode the refresh token to get user information or any other necessary data
+                // Decode the refresh token to get user information 
                 const secret_key = process.env.SECRET_KEY as Secret;
+                console.log("from refresh",secret_key)
                 const decoded = jwt.verify(refreshToken, secret_key);
                 
       // Use the decoded data to generate a new access token

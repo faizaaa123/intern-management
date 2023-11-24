@@ -12,6 +12,13 @@ export default function HomePage() {
 
   console.log({session})
 
+  useEffect(() => {
+    if(session) {
+      localStorage.setItem("accessToken", session.user.accessToken)
+      localStorage.setItem("refreshToken", session.user.refreshToken)
+  }
+  }, [])
+
   function signOutUser() {
     signOut({
       redirect: false

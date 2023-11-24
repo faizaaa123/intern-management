@@ -8,7 +8,6 @@ const User = require("../../../../server/models/userModel");
 const Supervisor = require("../../../../server/models/supervisorModel");
 require("dotenv").config()
 
-// let accessToken : string;
 
 export const options: NextAuthOptions = {
     providers: [
@@ -66,21 +65,6 @@ export const options: NextAuthOptions = {
                     return null
                 }
 
-                // if(!match) {
-                //     return null
-                // }
-
-                // payload needs to be a plain object, so must pass through {} as `user` is coming from mongoose
-                // accessToken = signJwtAccessToken({user});
-
-                // const result = {
-                //     ...user,
-                //     accessToken
-                // }
-
-                // console.log(result)
-
-                // return user object if everything is valid
                 return user;
             
         }}),
