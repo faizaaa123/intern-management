@@ -51,7 +51,6 @@ export default function Profile() {
     <h2>Firstname: {session?.user.firstname}</h2>
     <h2>Lastname: {session?.user.lastname}</h2>
     <h2>Email: {session?.user.email}</h2>
-    <h2>Status: {user["status"]}</h2>
     <br />
     <Link href={"/dashboard/intern/homepage"}>Back</Link>
     </>

@@ -14,6 +14,10 @@ export default function Redirct() {
   useEffect(() => {
     function redirectUser() {
       if (session) {
+        //store the access and refresh tokens
+        localStorage.setItem("accessToken", session.user.accessToken)
+        localStorage.setItem("refreshToken", session.user.refreshToken)
+
         if (session.user.role === 'Supervisor') {
           router.push('/dashboard/supervisor/homepage');
         } else {
