@@ -6,12 +6,14 @@ import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { axiosAuth } from '@/library/axios'
 import Image from 'next/image'
+import styles from "../../../styles/homepage.module.css"
 
 export default function HomePage() {
 
   const router = useRouter()
   const {data: session} = useSession()
   const [user, setUser] = useState({})
+  const [clicked, setClicked] = useState(false)
 
   // console.log({session})
 
@@ -51,38 +53,56 @@ getProfile()
     router.push("/")
   }
 
+  function setStatus() {
+    setClicked(true) 
+    const timerId = setTimeout(() => setClicked(false), 5000);
+  }
+
   return (
     <>
     {session?.user ? (
       
       <>
-      {console.log(user)}
-      <h1>Good Morning {session?.user?.firstname}!!</h1>
-      <p>It's nice to see you today.</p>
-      {user == undefined ? (
-        <div>
-          <p>Status</p>
-          <h2>Checked In:</h2>
-          <h2>{user["status"]}</h2>
-        </div>
-      ) : (
-        <div>
-          <h2>Check In</h2>
-          <p>In Office</p>
-          <Image
-            height={240}
-            width={240}
-            src={"/questionmark.svg"}
-            alt='Question Mark Icon'
-          />
-          <p>Working From Home</p>
-        </div>
-      )}
+      <div className={styles.centeredContainer}>
+        <h1 className={styles.heading}>Good Morning {session?.user?.firstname.charAt(0).toUpperCase() + session?.user?.firstname.slice(1)}!</h1>
+        <p className={styles.subheading}>It's nice to see you today.</p>
+        {user == undefined ? (
+          <div>
+            <p className={styles.p}>Status</p>
+            <h2 className={styles.checkIn}>Checked In:</h2>
+            <h2>{user["status"]}</h2>
+          </div>
+        ) : (
+          <div>
+            <h2 className={styles.checkIn}>Check In:</h2>
+            {!clicked ? ( 
+            <div>
+              <p className={styles.p}>In Office</p>
+                <Image
+                  height={200}
+                  width={200}
+                  src={"/questionmark.svg"}
+                  alt='Question Mark Icon'
+                  onClick={setStatus}
+                />
+              <p className={styles.p}>Working From Home</p>
+
+            </div>
+            ) : (
+              <div className={styles.buttonContainer}>
+                <button className={styles.button}>In Office</button>
+                <button className={styles.button}>Working From Home</button>
+              </div>
+            )
+            
+            }
+
+          </div>
+        )}
+
+      </div>
+
       <button onClick={signOutUser}>Sign out</button>
-      <br />
-      <Link href={"/dashboard/profile"}>My Profile</Link>
-      <br />
-      <Link href={"/dashboard/intern/requests"}>Requests</Link>
       </>
     
     ) : (

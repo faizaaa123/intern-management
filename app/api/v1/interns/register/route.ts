@@ -23,8 +23,8 @@ export async function POST (request: NextRequest) {
     const hashedPassword = await bcrypt.hash(password, 10);
   
     const newIntern = await User.create({
-      firstname: firstname,
-      lastname: lastname,
+      firstname: firstname.charAt(0).toUpperCase() + firstname.slice(1), //converting to title case
+      lastname: lastname.charAt(0).toUpperCase() + lastname.slice(1),
       email: email,
       password: hashedPassword,
     //   role: "Intern"
