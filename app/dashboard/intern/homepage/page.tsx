@@ -8,12 +8,24 @@ import { axiosAuth } from '@/library/axios'
 import Image from 'next/image'
 import styles from "../../../styles/homepage.module.css"
 
+interface User {
+  id: number,
+  firstname: string,
+  lastname: string,
+  email: string,
+  role: string,
+  accessToken: string,
+  refreshToken: string,
+  status: string,
+}
+
 export default function HomePage() {
 
   const router = useRouter()
   const {data: session} = useSession()
-  const [user, setUser] = useState({})
+  const [user, setUser] = useState<User>()
   const [clicked, setClicked] = useState(false)
+  const [userStatus, setUserStatus] = useState("")
 
   // console.log({session})
 
@@ -35,6 +47,7 @@ export default function HomePage() {
             const {data} = await response.data;
             console.log('this is the incoming data after creating a get request ',data)
             setUser(data)
+            setUserStatus(data["status"])
         } catch (error) {
             console.log(error);
         }
@@ -53,9 +66,46 @@ getProfile()
     router.push("/")
   }
 
-  function setStatus() {
+  function clickStatus() {
     setClicked(true) 
     const timerId = setTimeout(() => setClicked(false), 5000);
+  }
+
+  async function setStatus(e:any) {
+    if (e.target.id == "inOffice") {
+      try {
+        const response = await fetch(`http://localhost:5005/api/v1/interns/${session?.user.id}`, {
+            method: "PUT",
+            headers: {
+                'Content-Type': 'application/json',
+                "Authorization": `${localStorage.getItem("accessToken")!}`
+            },
+            body: JSON.stringify({"status": "Working in Office"})
+        });
+        const data = await response;
+        setUserStatus("Working in Office")
+        // console.log('status data ',data)
+      } catch (error) {
+          console.log(error);
+      }
+    } else {
+      try {
+        const response = await fetch(`http://localhost:5005/api/v1/interns/${session?.user.id}`, {
+            method: "PUT",
+            headers: {
+                'Content-Type': 'application/json',
+                "Authorization": `${localStorage.getItem("accessToken")!}`
+            },
+            body: JSON.stringify({"status": "Working From Home"})
+        });
+        const data = await response;
+        // console.log('status data ',data)
+        setUserStatus("Working From Home")
+      } catch (error) {
+          console.log(error);
+      }
+    }
+
   }
 
   return (
@@ -66,11 +116,18 @@ getProfile()
       <div className={styles.centeredContainer}>
         <h1 className={styles.heading}>Good Morning {session?.user?.firstname.charAt(0).toUpperCase() + session?.user?.firstname.slice(1)}!</h1>
         <p className={styles.subheading}>It's nice to see you today.</p>
-        {user == undefined ? (
+        {user && userStatus !== (undefined || "") ? (
           <div>
             <p className={styles.p}>Status</p>
             <h2 className={styles.checkIn}>Checked In:</h2>
-            <h2>{user["status"]}</h2>
+            <Image
+                  height={200}
+                  width={200}
+                  src={"/tick.svg"}
+                  alt='Tick Icon'
+                  onClick={clickStatus}
+                />
+            <h2>{userStatus}</h2>
           </div>
         ) : (
           <div>
@@ -83,15 +140,15 @@ getProfile()
                   width={200}
                   src={"/questionmark.svg"}
                   alt='Question Mark Icon'
-                  onClick={setStatus}
+                  onClick={clickStatus}
                 />
               <p className={styles.p}>Working From Home</p>
 
             </div>
             ) : (
               <div className={styles.buttonContainer}>
-                <button className={styles.button}>In Office</button>
-                <button className={styles.button}>Working From Home</button>
+                <button id='inOffice' className={styles.button} onClick={(e) => setStatus(e)}>In Office</button>
+                <button id='wfh' className={styles.button} onClick={(e) => setStatus(e)}>Working From Home</button>
               </div>
             )
             

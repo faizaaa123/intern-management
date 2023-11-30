@@ -98,6 +98,7 @@ exports.updateIntern = asyncHandler(async (req, res, next) => {
           lastname: req.body.lastname,
           email: req.body.email,
           internRole: req.body.internRole,
+          status: req.body.status
         },
       },
       { new: true }
