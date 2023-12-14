@@ -4,9 +4,9 @@ import React, { useEffect, useState } from 'react'
 import {signOut, useSession} from "next-auth/react"
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
-import { axiosAuth } from '@/library/axios'
 import Image from 'next/image'
 import styles from "../../../styles/homepage.module.css"
+import useAxiosAuth from '@/library/hooks/useAxiosAuth'
 
 interface User {
   id: number,
@@ -24,6 +24,7 @@ export default function HomePage() {
   const router = useRouter()
   const {data: session} = useSession()
   const [user, setUser] = useState<User>()
+  const axiosAuth = useAxiosAuth()
   const [clicked, setClicked] = useState(false)
   const [userStatus, setUserStatus] = useState("")
 

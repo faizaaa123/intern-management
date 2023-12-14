@@ -23,7 +23,7 @@ const Navigation = () => {
                 <Link className={styles.link} href={`/dashboard/${role}/homepage`}>Home</Link>
                 <Link className={styles.link} href={"/"}>Calendar</Link>
                 <Link className={styles.link} href={`/dashboard/${role}/requests`}>Requests</Link>
-                <Link className={styles.link} href={`/dashboard/profile`}>Profile</Link>
+                <Link className={styles.link} href={`/dashboard/profile`}>Settings</Link>
             </nav>
         </div>
     )

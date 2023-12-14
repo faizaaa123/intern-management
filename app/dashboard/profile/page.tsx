@@ -46,6 +46,11 @@ export default function Profile() {
 
   return (
     <>
+    <div>
+        <div className={styles.profilePic}>
+            <h1>{`${session?.user.firstname[0]}${session?.user.lastname[0]}`}</h1>
+        </div>
+    </div>
     <h1>My Profile</h1>
     <br/>
     <h2>Firstname: {session?.user.firstname}</h2>

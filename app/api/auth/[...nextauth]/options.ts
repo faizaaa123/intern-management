@@ -4,6 +4,7 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import {connectToMongoDB} from "../../../../library/connectToMongoDB";
 import { signJwtAccessToken, signJwtRefreshToken } from "@/library/jwt";
 import bcrypt from "bcrypt";
+import { signIn } from "next-auth/react";
 const User = require("../../../../server/models/userModel");
 const Supervisor = require("../../../../server/models/supervisorModel");
 require("dotenv").config()
@@ -12,6 +13,7 @@ require("dotenv").config()
 export const options: NextAuthOptions = {
     providers: [
         CredentialsProvider({
+            id: "login",
             name: "Credentials",
             credentials: {
                 // firstname: {
@@ -66,6 +68,53 @@ export const options: NextAuthOptions = {
                 }
 
                 return user;
+            
+        }}),
+        CredentialsProvider({
+            id: "signup",
+            name: "Credentials",
+            credentials: {
+
+                firstname: {
+                    label: "Firstname",
+                    type: "firstname",
+                    placeholder: "Enter firstname"
+                },
+                lastname: {
+                    label: "Firstname",
+                    type: "firstname",
+                    placeholder: "Enter firstname"
+                },
+                email: {
+                    label: "Email:",
+                    type: "email",
+                    placeholder: "Enter email"
+                },
+                password: {
+                    label: "Password:",
+                    type: "password",
+                    placeholder: ""
+                },
+            },
+            async authorize(credentials) {
+
+                if(!credentials?.email || !credentials.password) {
+                    return null
+                }
+
+                await connectToMongoDB().catch((error) => {throw new Error(error)})
+
+                const hashedPassword = await bcrypt.hash(credentials.password, 10);
+
+                const newIntern = await User.create({
+                    firstname: `${credentials.firstname.charAt(0).toUpperCase()}${credentials.firstname.slice(1)}`, //converting to title case
+                    lastname: `${credentials.lastname.charAt(0).toUpperCase()}${credentials.lastname.slice(1)}`,
+                    email: credentials.email,
+                    password: hashedPassword,
+                    //   role: "Intern"
+                  });
+
+                return newIntern;
             
         }}),
     ],
