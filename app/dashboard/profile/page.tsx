@@ -3,13 +3,15 @@ import React, { useEffect, useState } from 'react'
 import { useSession } from 'next-auth/react'
 import User from '@/server/models/userInterface'
 import Link from 'next/link'
+import styles from "../../styles/profile.module.css"
 import useAxiosAuth from '@/library/hooks/useAxiosAuth'
+import { axiosAuth } from '@/library/axios'
 
 export default function Profile() {
 
     const {data: session} = useSession()
     const [user, setUser] = useState({})
-    const axiosAuth = useAxiosAuth()
+    // const axiosAuth = useAxiosAuth()
     const [accessToken, setAccessToken] = useState("");
 
     // console.log(session)

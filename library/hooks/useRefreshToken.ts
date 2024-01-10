@@ -19,12 +19,20 @@ export const useRefreshToken = () => {
         //     const newRefreshToken = signJwtRefreshToken(token.decoded!)
         //     localStorage.setItem("refreshToken", newRefreshToken)
         // }
-
-        const res = await axios.post("/api/v1/refresh", {
-            refreshToken: localStorage.getItem("refreshToken"),
-        })
-
-        localStorage.setItem("accessToken", res.data.accessToken)
+        try {
+            const res = await axios.post("/api/v1/refresh", {
+                refreshToken: localStorage.getItem("refreshToken"),
+            })
+    
+            localStorage.setItem("accessToken", res.data.accessToken)
+            
+        } catch (error: any) {
+            console.log("THIS IS THE ERROR COMING FROM REFRESH RETURN",error);
+            // if the refresh token has expired, force the user to sign out
+            if(error['response'] && error['response']['data'] && error['response']['data'] === "Refresh Token has expired") {
+                signOut({callbackUrl: "http://localhost:3000"});
+            }
+        }
     }
 
     return refreshToken

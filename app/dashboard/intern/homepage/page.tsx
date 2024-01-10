@@ -46,7 +46,7 @@ export default function HomePage() {
                 }
             });
             const {data} = await response.data;
-            console.log('this is the incoming data after creating a get request ',data)
+            console.log('this is the incoming data after creating a get request for homepage ',data)
             setUser(data)
             setUserStatus(data["status"])
         } catch (error) {

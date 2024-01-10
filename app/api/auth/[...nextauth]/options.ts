@@ -81,9 +81,9 @@ export const options: NextAuthOptions = {
                     placeholder: "Enter firstname"
                 },
                 lastname: {
-                    label: "Firstname",
-                    type: "firstname",
-                    placeholder: "Enter firstname"
+                    label: "Lastname",
+                    type: "lastname",
+                    placeholder: "Enter lastname"
                 },
                 email: {
                     label: "Email:",
@@ -166,6 +166,8 @@ export const options: NextAuthOptions = {
     },
     secret: process.env.NEXTAUTH_SECRET,
     debug: process.env.NODE_ENV === "development"
+
+    
     
 }
 

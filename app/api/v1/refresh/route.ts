@@ -21,17 +21,19 @@ export async function POST(req: NextRequest, res: NextResponse) {
                 const secret_key = process.env.SECRET_KEY as Secret;
                 const decoded = jwt.verify(refreshToken, secret_key);
                 
-      // Use the decoded data to generate a new access token
-      const newAccessToken = jwt.sign({decoded}, secret_key, {
-        expiresIn: '1h', // Set the expiration time as needed
-      });
+              // Use the decoded data to generate a new access token
+              const newAccessToken = jwt.sign({decoded}, secret_key, {
+                expiresIn: '1h', // Set the expiration time as needed
+              });
 
       // Respond with the new access token
       return NextResponse.json({ accessToken: newAccessToken });
-    } catch (error) {
-      console.error('Error decoding or verifying the refresh token:', error);
-      return new NextResponse("Invalid Refresh Token", {status: 401})
-    }
+      
+            } catch (error: any) {
+              console.error('Error decoding or verifying the refresh token:', error);
+              if (error['name'] === "TokenExpiredError")
+              return new NextResponse("Refresh Token has expired", {status: 401})
+            }
   } else {
     // If the request method is not POST, return a 405 Method Not Allowed status
     return new NextResponse("Method not allowed", {status: 405});
