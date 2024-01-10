@@ -11,7 +11,15 @@ export default function Redirct() {
   const router = useRouter()
   const {data: session} = useSession()
 
+  // Function to refresh the page
+  const refreshPage = () => {
+    router.refresh();
+  };
+
   useEffect(() => {
+    // if reload takes more than five seconds, refresh the page
+    const timer = setTimeout(refreshPage, 5000);
+    
     function redirectUser() {
       if (session) {
         //store the access and refresh tokens
@@ -27,6 +35,7 @@ export default function Redirct() {
     }
 
     redirectUser();
+    return () => clearTimeout(timer);
   }, [session, router]);
 
   return (
