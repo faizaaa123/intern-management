@@ -5,6 +5,8 @@
 
 // export { handler as GET, handler as POST }
 
+// TODO: add comments throughout my code to explan what's going on at each stage
+// TODO: add token revocation so that if user logs out before expiration, blacklist the token for security purposes
 
 import type { NextApiRequest, NextApiResponse } from "next";
 import NextAuth from "next-auth";
@@ -62,7 +64,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
             const match = await bcrypt.compare(credentials.password, user.password)
 
-            // change this in the future so that it only checks whether the hashed password matches user's password
+            //TODO: change this in the future so that it only checks whether the hashed password matches user's password
             if(user.password !== credentials.password) {
                 if(!match) {
                     return null

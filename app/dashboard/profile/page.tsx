@@ -30,7 +30,7 @@ export default function Profile() {
                     const response = await axiosAuth.get(`http://localhost:5005/api/v1/interns/${session?.user.id}`, {
                         headers: {
                             'Content-Type': 'application/json',
-                            "Authorization": `${accessToken}`
+                            "Authorization": `${localStorage.getItem("accessToken")}`
                         }
                     });
                     const {data} = await response.data;
