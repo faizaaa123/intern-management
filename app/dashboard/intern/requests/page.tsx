@@ -58,7 +58,6 @@ export default function InternRequests() {
             
             )
         })}
-        <button onClick={()=> router.back()}>Back</button>
     </>
   )
 }

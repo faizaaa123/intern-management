@@ -17,15 +17,18 @@ const Navigation = () => {
     
     console.log(role)
     return (
-        
-        <div>
-            <nav className={styles.border}>
-                <Link className={styles.link} href={`/dashboard/${role}/homepage`}>Home</Link>
-                <Link className={styles.link} href={"/"}>Calendar</Link>
-                <Link className={styles.link} href={`/dashboard/${role}/requests`}>Requests</Link>
-                <Link className={styles.link} href={`/dashboard/profile`}>Settings</Link>
-            </nav>
-        </div>
+        <>
+        {session && (
+            <div>
+                <nav className={styles.border}>
+                    <Link className={styles.link} href={`/dashboard/${role}/homepage`}>Home</Link>
+                    <Link className={styles.link} href={"/"}>Calendar</Link>
+                    <Link className={styles.link} href={`/dashboard/${role}/requests`}>Requests</Link>
+                    <Link className={styles.link} href={`/dashboard/profile`}>Settings</Link>
+                </nav>
+            </div>
+        )}
+        </>       
     )
 }
 
