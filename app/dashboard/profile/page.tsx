@@ -50,6 +50,7 @@ export default function Profile() {
     <>
     <div>
         <div className={styles.profilePic}>
+            {/* TODO: display user's initials according to the wireframe */}
             <h1>{`${session?.user.firstname[0]}${session?.user.lastname[0]}`}</h1>
         </div>
     </div>

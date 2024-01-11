@@ -23,6 +23,7 @@ export default function RegisterPage() {
 
           const {firstname, lastname, email, password} = userData
 
+          // using nextAuth 'signup' credential provider to register the new user
           const signInNewUser = await signIn("signup", {
             firstname: `${firstname.charAt(0).toUpperCase()}${firstname.slice(1)}`, //converting to title case
             lastname: `${lastname.charAt(0).toUpperCase()}${lastname.slice(1)}`,

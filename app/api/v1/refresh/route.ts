@@ -24,13 +24,13 @@ export async function POST(req: NextRequest, res: NextResponse) {
                 
               // Use the decoded data to generate a new access token
               const newAccessToken = jwt.sign({user}, secret_key, {
-                expiresIn: '15m', // Set the expiration time as needed
+                expiresIn: '15m', 
               });
 
               // DEBUGGING: console.log("this is the new accessToken ", newAccessToken)
 
-      // Respond with the new access token
-      return NextResponse.json({ accessToken: newAccessToken });
+              // Respond with the new access token
+              return NextResponse.json({ accessToken: newAccessToken });
 
             } catch (error: any) {
               console.error('Error decoding or verifying the refresh token:', error);

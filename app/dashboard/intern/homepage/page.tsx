@@ -1,5 +1,5 @@
 "use client"
-
+// TODO: move signout button to settings page (dashbaord/profile)
 import React, { useEffect, useState } from 'react'
 import {signOut, useSession} from "next-auth/react"
 import { useRouter } from 'next/navigation'
@@ -85,7 +85,7 @@ getProfile()
         });
         const data = await response;
         setUserStatus("Working in Office")
-        // console.log('status data ',data)
+        
       } catch (error) {
           console.log(error);
       }

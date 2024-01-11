@@ -20,7 +20,7 @@ const Supervisor = require("../../../../server/models/supervisorModel");
 require("dotenv").config()
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
-  // Define your credential providers
+  // Defining credential providers
   const credentialProviders = [
     CredentialsProvider({
         id: "login",
@@ -39,11 +39,10 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
             },
         },
         async authorize(credentials) {
-            // this is where you retreive  user info from databse.
+            // this is where you retreive user info from database.
             // check out the doc here: https://next-auth.js.org/configuration/providers/credentials
 
-            // console.log(credentials)
-
+            // if field is missing email/password, throw error
             if(!credentials?.email || !credentials.password) {
                 return null
             }
@@ -51,7 +50,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
             await connectToMongoDB().catch((error) => {throw new Error(error)})
 
 
-            
+            // find user from database
             const user = await User.findOne({
                 email: credentials?.email
             }) || await Supervisor.findOne({
@@ -62,6 +61,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
                 return null
             }
 
+            // checking if password matches
             const match = await bcrypt.compare(credentials.password, user.password)
 
             //TODO: change this in the future so that it only checks whether the hashed password matches user's password
@@ -74,6 +74,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
             return user;
         
     }}),
+    // this is the registration form that is handled in the backend only
     CredentialsProvider({
         id: "signup",
         name: "Credentials",
@@ -110,6 +111,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
             const hashedPassword = await bcrypt.hash(credentials.password, 10);
 
+            // creating the new user
             const newIntern = await User.create({
                 firstname: `${credentials.firstname.charAt(0).toUpperCase()}${credentials.firstname.slice(1)}`, //converting to title case
                 lastname: `${credentials.lastname.charAt(0).toUpperCase()}${credentials.lastname.slice(1)}`,
@@ -171,7 +173,6 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     },
     secret: process.env.NEXTAUTH_SECRET,
     debug: process.env.NODE_ENV === "development"
-    // Other options...
   });
 }
 
