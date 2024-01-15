@@ -1,5 +1,7 @@
 import axios from "axios";
 
+// configuring axios
+
 const BASE_URL = "http://localhost:5005";
 
 export default axios.create({

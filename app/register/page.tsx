@@ -2,6 +2,7 @@
 import React, { SyntheticEvent } from 'react'
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
+import { signIn } from 'next-auth/react'
 
 export default function RegisterPage() {
 
@@ -16,18 +17,28 @@ export default function RegisterPage() {
     async function registerUser(e: SyntheticEvent) {
         e.preventDefault();
 
-        const response = await fetch("http://localhost:3000/api/v1/interns/register", {
-            method: "POST",
-            headers: {
-                'Content-Type': "application/json",
-            },
-            body: JSON.stringify({userData})
-        })
+        console.log(JSON.stringify({userData}))
 
-        const userInfo = await response.json()
-        console.log(userInfo)
-        // redirect to login page
-        router.push("/dashboard/redirect")
+        try {
+
+          const {firstname, lastname, email, password} = userData
+
+          // using nextAuth 'signup' credential provider to register the new user
+          const signInNewUser = await signIn("signup", {
+            firstname: `${firstname.charAt(0).toUpperCase()}${firstname.slice(1)}`, //converting to title case
+            lastname: `${lastname.charAt(0).toUpperCase()}${lastname.slice(1)}`,
+            email: email,
+            password: password,
+            redirect: true,
+            callbackUrl: "/dashboard/redirect",
+          });
+          console.log(signInNewUser)
+          // redirect to login page
+          router.push("/dashboard/redirect")
+          
+        } catch (error) {
+          console.log(error)
+        }
     }
  
     return (

@@ -5,7 +5,7 @@ interface SignOption {
 }
 
 const DefaultSignOption: SignOption = {
-    expiresIn: "10s" //access tokens usually last 15mins
+    expiresIn: "15m" //access tokens usually last 15mins
 }
 
 const DefaultRefreshOption: SignOption = {

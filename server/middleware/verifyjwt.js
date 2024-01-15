@@ -14,6 +14,9 @@ const verifyAccessToken = (req, res, next) => {
         next()
     } catch (error) {
         console.log(error)
+        if (error['name'] && error['name'] === "TokenExpiredError") {
+            return res.status(401).json({ error: 'Unorthorized: Token provided has expired.' });
+        }
         return res.status(403).json({ error: 'Forbidden: Invalid access token' });
     }
 

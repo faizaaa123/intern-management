@@ -9,6 +9,7 @@ const useAxiosAuth = () => {
     const refreshToken = useRefreshToken()
 
     useEffect(() => {
+        // for every axios request using axiosAuth, check that authorization is defined in the header
         const requestIntercept = axiosAuth.interceptors.request.use((config)=> {
             if (!config.headers["Authorization"]) {
                 config.headers["Authorization"] = `${session?.user.accessToken}`
@@ -19,11 +20,13 @@ const useAxiosAuth = () => {
         (error) => Promise.reject(error)
         )
 
+        // if response comes back as 401 (ie, access token is expired) use refresh token to update the access token 
+        // before making the request again
         const responseIntercept = axiosAuth.interceptors.response.use(
             (response) => response,
             async (error) => {
                 const prevRequest = error.config;
-                if (error.response.status == 403 && !prevRequest.sent) {
+                if (error.response.status == 401 && !prevRequest.sent) {
                     prevRequest.sent = true;
 
                     await refreshToken()
