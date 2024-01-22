@@ -1,0 +1,55 @@
+.heading {
+    font-size: 70px;
+
+}
+
+.subheading {
+    font-size: 20px;
+}
+
+.checkIn {
+    font-size: 50px;
+}
+
+.p {
+    font-size: 20px;
+    color: rgb(180, 180, 180);
+    font-weight: bold;
+}
+
+.centeredContainer {
+    margin: 0 auto;
+    width: 65vw;
+    text-align: center;
+}
+
+.textLeftContainer {
+    width: 65vw;
+    margin: 0 auto;
+}
+
+.buttonContainer {
+    width: 250px;
+    margin: 0 auto;
+}
+
+.button {
+    height: 50px;
+    width: 250px;
+    border-radius: 7px;
+    border: 2px solid rgb(160, 160, 160);
+    font-size: 20px;
+    font-weight: bold;
+    color: rgb(160, 160, 160);
+    margin: 10px 0;
+    background-color: white;
+
+}
+
+.button:hover {
+    cursor: pointer;
+    transition: 0.25s;
+    border-color: #e43446;
+    color: #e43446;
+
+}

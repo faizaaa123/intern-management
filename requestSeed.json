@@ -1,0 +1,44 @@
+
+    [
+        {
+          "user": "64da80b19de4b37dab976d7f", 
+          "start_date": "2023-09-01",
+          "end_date": "2023-09-05",
+          "status": "pending",
+          "reason": "Vacation",
+          "additional_notes": "Please consider my request."
+        },
+        {
+          "user": "64da80b19de4b37dab976d7f", 
+          "start_date": "2023-10-15",
+          "end_date": "2023-10-18",
+          "status": "approved",
+          "reason": "Family Event",
+          "additional_notes": "Thank you for approving my leave."
+        },
+        {
+          "user": "64da80b19de4b37dab976d7f", 
+          "start_date": "2023-11-20",
+          "end_date": "2023-11-22",
+          "status": "rejected",
+          "reason": "Personal Reasons",
+          "additional_notes": "I'll try again next time."
+        },
+        {
+          "user": "64da80b19de4b37dab976d7f", 
+          "start_date": "2023-12-10",
+          "end_date": "2023-12-15",
+          "status": "pending",
+          "reason": "Year-end Break",
+          "additional_notes": "Hoping for some time off."
+        },
+        {
+          "user": "64da80b19de4b37dab976d7f", 
+          "start_date": "2023-11-05",
+          "end_date": "2023-11-08",
+          "status": "approved",
+          "reason": "Conference",
+          "additional_notes": "Attending an important conference."
+        }
+      ]
+      

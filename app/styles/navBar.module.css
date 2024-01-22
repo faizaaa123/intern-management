@@ -1,0 +1,22 @@
+.border {
+    height: 60px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    font-size: 20px;
+    font-weight: bold;
+    background-color: #212129;
+    /* margin-bottom: -1vw; */
+}
+
+.link {
+    text-decoration: none;
+    color: white;
+}
+
+
+.link:hover {
+    text-decoration: underline;
+    text-underline-offset: 5px;
+    text-decoration-thickness: 2px;
+}
