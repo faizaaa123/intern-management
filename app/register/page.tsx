@@ -2,6 +2,7 @@
 import React, { SyntheticEvent } from 'react'
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
+import styles from '../styles/signUp.module.css'
 import { signIn } from 'next-auth/react'
 
 export default function RegisterPage() {
@@ -43,7 +44,7 @@ export default function RegisterPage() {
  
     return (
         <>
-          <div className="example-container">
+          <div className="centeredContainer">
             <div className="example-logo-container">
                 {/* we can put a logo here... */}
               <h2 className="example-title">
@@ -54,7 +55,7 @@ export default function RegisterPage() {
             <div className="example-form-container">
               <form className="example-form" action="#" method="POST" onSubmit={registerUser}>
                 <div className="example-form-group">
-                    <label htmlFor="firstname" className="example-label">
+                    <label htmlFor="firstname" className={styles.heading}>
                     Firstname
                     </label>
                     <div className="example-input-container">
@@ -125,10 +126,10 @@ export default function RegisterPage() {
                   </div>
                 </div>
     
-                <div className="example-button-container">
+                <div className="buttonContainer">
                   <button
                     type="submit"
-                    className="example-button"
+                    className="button"
                   >
                     Register
                   </button>
