@@ -1,93 +1,78 @@
-export default function Typist() {
-  var TxtType = function (el, toRotate, period, features, hbox) {
-    this.toRotate = toRotate;
-    this.el = el;
-    this.loopNum = 0;
-    this.period = period;
-    this.txt = '';
-    this.features = features;
-    this.hbox = hbox;
-    this.tick();
-    this.isDeleting = false;
-  };
+import { useEffect, useState } from 'react';
 
-  TxtType.prototype.tick = function () {
-    var i = this.loopNum % this.toRotate.length;
-    var fullTxt = this.toRotate[i];
-
-    if (this.isDeleting) {
-      this.txt = fullTxt.substring(0, this.txt.length - 1);
-    } else {
-      this.txt = fullTxt.substring(0, this.txt.length + 1);
-    }
-
-    this.el.innerHTML = '<span class="wrap">' + this.txt + '</span>';
-
-    var that = this;
-    var delta = 200 - Math.random() * 100;
-
-    if (this.isDeleting) {
-      delta /= 2;
-    }
-
-    if (!this.isDeleting && this.txt === fullTxt) {
-      delta = this.period;
-      this.isDeleting = true;
-    } else if (this.isDeleting && this.txt === '') {
-      const condition = (i + 1) % this.features.length;
-      this.isDeleting = false;
-      if (this.features[condition]) {
-        this.features[condition].classList.add('active');
-        this.features[condition]
-          .querySelector('.new-feauture-img ')
-          .classList.add('active');
-        this.features[condition]
-          .querySelector('.new-feauture-heading ')
-          .classList.add('active');
-
-        this.features[condition]
-          .querySelector('.new-feauture-para ')
-          .classList.add('active');
-
-        setTimeout(() => {
-          this.features[condition]
-            .querySelector('.new-feauture-img ')
-            .classList.add('opacity');
-        }, 50);
-        this.hbox[condition].classList.add('active');
-      }
-      this.features[i].classList.remove('active');
-
-      this.features[i]
-        .querySelector('.new-feauture-img ')
-        .classList.remove('active');
-      this.features[i]
-        .querySelector('.new-feauture-heading ')
-        .classList.remove('active');
-      this.features[i]
-        .querySelector('.new-feauture-para ')
-        .classList.remove('active');
-      this.features[i]
-        .querySelector('.new-feauture-img ')
-        .classList.remove('opacity');
-
-      this.hbox[i].classList.remove('active');
-
-      this.loopNum++;
-      delta = 500;
-    }
-
-    setTimeout(function () {
-      that.tick();
-    }, delta);
-  };
-
-  var elements = document.querySelector('.sign-up-main-title-span');
-  var toRotate = ['upcoming events', 'attendance report', 'tasks'];
+const Typist = ({ strings, delay }) => {
+  const [currentText, setCurrentText] = useState('');
+  const [loopNum, setLoopNum] = useState(0);
+  const [isDeleting, setIsDeleting] = useState(false);
+  const [delta, setDelta] = useState(0);
   var features = document.querySelectorAll('.new-feature-container');
   var hbox = document.querySelectorAll('.hbox');
-  var period = 2000;
-  if (toRotate) {
-    new TxtType(elements, toRotate, period, features, hbox);
-  }
-}
+
+  useEffect(() => {
+    function type() {
+      setTimeout(function () {
+        var i = loopNum % strings.length;
+        var fullTxt = strings[i];
+
+        if (isDeleting) {
+          setDelta(40);
+          setCurrentText(fullTxt.substring(0, currentText.length - 1));
+        } else {
+          setDelta(200 - Math.random() * 100);
+          setCurrentText(fullTxt.substring(0, currentText.length + 1));
+        }
+
+        if (!isDeleting && currentText === fullTxt) {
+          setDelta(delay);
+          setIsDeleting(true);
+        } else if (isDeleting && currentText === '') {
+          const condition = (i + 1) % features.length;
+          if (features[condition]) {
+            features[condition].classList.add('active');
+            features[condition]
+              .querySelector('.new-feauture-img ')
+              .classList.add('active');
+            features[condition]
+              .querySelector('.new-feauture-heading ')
+              .classList.add('active');
+
+            features[condition]
+              .querySelector('.new-feauture-para ')
+              .classList.add('active');
+
+            setTimeout(() => {
+              features[condition]
+                .querySelector('.new-feauture-img ')
+                .classList.add('opacity');
+            }, 50);
+            hbox[condition].classList.add('active');
+          }
+          features[i].classList.remove('active');
+
+          features[i]
+            .querySelector('.new-feauture-img ')
+            .classList.remove('active');
+          features[i]
+            .querySelector('.new-feauture-heading ')
+            .classList.remove('active');
+          features[i]
+            .querySelector('.new-feauture-para ')
+            .classList.remove('active');
+          features[i]
+            .querySelector('.new-feauture-img ')
+            .classList.remove('opacity');
+
+          hbox[i].classList.remove('active');
+          setIsDeleting(false);
+          setLoopNum((loopNum) => loopNum + 1);
+          setDelta(500);
+        }
+      }, delta);
+    }
+    type();
+  }, [currentText, isDeleting]);
+
+  return <span>{currentText}</span>;
+};
+
+export default Typist;

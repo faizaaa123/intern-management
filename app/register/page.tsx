@@ -9,12 +9,11 @@ import GoogleLogo from './assets/images/GoogleLogo';
 import { EyeSlash, Eye } from './assets/images/EyeIcons';
 import SigninNewFeatures from '../../components/SigninNewFeatures';
 import Link from 'next/link';
-import Typist from './assets/scripts/typist';
+import Typist from './assets/scripts/Typist';
 
 export default function RegisterPage() {
-  useEffect(() => {
-    Typist();
-  }, []);
+  const [hdata, setHdata] = useState(false);
+
   const router = useRouter();
   const [isError, setIsError] = useState(false);
   const [error, setError] = useState('');
@@ -87,8 +86,19 @@ export default function RegisterPage() {
             </div>
             <div className="example-main-title-container">
               <h2 className="example-title sign-up-main-title">
-                Sign up to monitor interns{' '}
-                <span className="sign-up-main-title-span"></span>
+                Sign up to monitor interns
+                <span className="sign-up-main-title-span">
+                  <span className="wrap">
+                    <Typist
+                      strings={[
+                        'upcoming events',
+                        'attendance report',
+                        'tasks',
+                      ]}
+                      delay={2000}
+                    />
+                  </span>
+                </span>
               </h2>
             </div>
             {isError && <div className="error">{error}</div>}

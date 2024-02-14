@@ -4,8 +4,8 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import GoogleLogo from '../register/assets/images/GoogleLogo';
 import { signIn } from 'next-auth/react';
-import './assets/styles/login.css';
 import Link from 'next/link';
+import '../register/assets/styles/register.css';
 
 export default function RegisterPage() {
   const router = useRouter();
@@ -14,8 +14,6 @@ export default function RegisterPage() {
   const [error, setError] = useState('Invalid username or password');
 
   const [userData, setUserData] = useState({
-    firstname: '',
-    lastname: '',
     email: '',
     password: '',
   });
@@ -31,12 +29,10 @@ export default function RegisterPage() {
     try {
       setIsError(false);
       setIsLoading(true);
-      const { firstname, lastname, email, password } = userData;
+      const { email, password } = userData;
 
       // using nextAuth 'signup' credential provider to register the new user
       const logInNewUser = await signIn('login', {
-        firstname: `${firstname.charAt(0).toUpperCase()}${firstname.slice(1)}`, //converting to title case
-        lastname: `${lastname.charAt(0).toUpperCase()}${lastname.slice(1)}`,
         email: email,
         password: password,
         redirect: false,
@@ -127,8 +123,8 @@ export default function RegisterPage() {
               </button>
             </div>
           </form>
-          <div className="google-login-container">
-            <button className="google-login-button" onClick={googleRegister}>
+          <div className="google-sign-up-container">
+            <button className="google-sign-up-button" onClick={googleRegister}>
               <span className="google-logo-container">
                 <GoogleLogo />
               </span>
