@@ -16,12 +16,13 @@ body {
   font-family: 'OutfitMedium' !important;
   font-weight: 500;
   font-size: 12.32px;
+  height: 100vh !important;
 }
 
 .sign-up-container {
   height: 100%;
   width: 100%;
-  overflow: hidden;
+  overflow: auto;
 }
 
 .trackr-logo {

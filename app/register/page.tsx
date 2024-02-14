@@ -8,22 +8,13 @@ import TrackrLogo from './assets/images/TrackrLogo';
 import GoogleLogo from './assets/images/GoogleLogo';
 import { EyeSlash, Eye } from './assets/images/EyeIcons';
 import SigninNewFeatures from '../../components/SigninNewFeatures';
-import Script from 'next/script';
 import Link from 'next/link';
-import { TxtType } from './assets/scripts/typist';
+import Typist from './assets/scripts/typist';
 
 export default function RegisterPage() {
   useEffect(() => {
-    var elements = document.querySelector('.sign-up-main-title-span');
-    var toRotate = ['upcoming events', 'attendance report', 'tasks'];
-    var features = document.querySelectorAll('.new-feature-container');
-    var hbox = document.querySelectorAll('.hbox');
-    var period = 2000;
-    if (toRotate) {
-      new TxtType(elements, toRotate, period, features, hbox);
-    }
+    Typist();
   }, []);
-
   const router = useRouter();
   const [isError, setIsError] = useState(false);
   const [error, setError] = useState('');
@@ -298,7 +289,6 @@ export default function RegisterPage() {
           <SigninNewFeatures />
         </div>
       </div>
-      <Script src={require('./assets/scripts/typist.js')}></Script>
     </>
   );
 }
