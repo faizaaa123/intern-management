@@ -1,0 +1,434 @@
+@font-face {
+  font-family: InterMedium;
+  src: url('../fonts/Inter-VariableFont_slnt\,wght.ttf');
+  font-weight: 500;
+}
+@font-face {
+  font-family: OutfitMedium;
+  src: url('../fonts/Outfit-VariableFont_wght.ttf');
+  font-weight: 500;
+}
+
+* {
+  box-sizing: border-box;
+}
+body {
+  font-family: 'OutfitMedium' !important;
+  font-weight: 500;
+  font-size: 12.32px;
+  height: 100vh !important;
+}
+
+.sign-up-container {
+  height: 100%;
+  width: 100%;
+  overflow: auto;
+}
+
+.trackr-logo {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+}
+.svg-logo {
+  width: 35px;
+  height: 35px;
+}
+.sign-up-main-title {
+  margin: 0;
+}
+
+.sign-up-grid-container {
+  height: 100%;
+  display: grid;
+  grid-template-columns: 40% 60%;
+}
+.error {
+  background-color: #fdefef;
+  color: #ff8080;
+  border: 0.68px solid #ff8080;
+  border-radius: 5.48px;
+  padding: 13px;
+}
+
+.example-container {
+  display: grid;
+  align-items: center;
+  align-content: center;
+  padding: 50px 5vw;
+  grid-gap: 20px;
+  position: relative;
+}
+
+.example-form-container {
+  display: grid;
+  grid-row-gap: 20px;
+}
+.sign-up-main-title {
+  font-family: 'InterMedium';
+  font-weight: 500;
+  font-size: 26px;
+}
+.sign-up-main-title-span {
+  height: 30px;
+  display: block;
+  color: #f24822;
+  padding: 3px 0;
+}
+.sign-up-main-title-span > .wrap {
+  border-right: 3px solid #f24822;
+  animation: blink-caret-inverse 0.5s step-end infinite;
+}
+@keyframes blink-caret-inverse {
+  from,
+  to {
+    border-color: #f24822;
+  }
+  50% {
+    border-color: transparent;
+  }
+}
+
+.sign-up-main-title-span > .wrap::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-right: 3px solid #f24822;
+  animation: blink-caret 0.5s step-end infinite;
+}
+@keyframes blink-caret {
+  from,
+  to {
+    border-color: transparent;
+  }
+  50% {
+    border-color: #f24822;
+  }
+}
+
+.example-form {
+  display: grid;
+  grid-row-gap: 12px;
+}
+.sign-up-form-heading {
+  font-size: 1.1em;
+  font-weight: 500;
+}
+.example-input-container {
+  position: relative;
+}
+.example-input {
+  border: 0.68px solid #b3b3b3;
+  padding: 13px;
+  border-radius: 5.48px;
+  width: -webkit-fill-available;
+}
+
+.checkbox-intern-container,
+.checkbox-supervisor-container {
+  float: left;
+  margin-right: 50px;
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+}
+
+#checkbox1,
+#checkbox2 {
+  margin-right: 10px;
+  position: relative;
+}
+input[type='checkbox']:checked::before {
+  content: '';
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  left: 0;
+  top: 0;
+  background-color: #000;
+  border-radius: 2px;
+}
+input[type='checkbox']:checked::after {
+  content: url('data:image/svg+xml; utf8, <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="white" viewBox="0 0 24 24"><path d="M20.285 2l-11.285 11.567-5.286-5.011-3.714 3.716 9 8.728 15-15.285z"/></svg>');
+  position: absolute;
+  left: 1px;
+  top: 0px;
+}
+
+.eye-icon-container {
+  position: absolute;
+  right: 13px;
+  top: 0;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.eye-svg {
+  width: 20px;
+  height: 20px;
+}
+
+.example-button.sign-up-register-button {
+  background-color: #f24822;
+  padding: 13px;
+  border-radius: 5.48px;
+  width: -webkit-fill-available;
+  border: 0px solid;
+  color: #fff;
+}
+
+.seperator-container {
+  display: flex;
+  align-items: center;
+}
+.seperator-line {
+  height: 1px;
+  background-color: #b3b3b3;
+  width: 100%;
+}
+.seperator-text {
+  font-size: 14px;
+  padding: 5px;
+}
+
+.google-sign-up-button {
+  background-color: transparent;
+  padding: 2px;
+  font-weight: 600;
+  border-radius: 5.48px;
+  width: -webkit-fill-available;
+  border: 1px solid #b3b3b3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.google-logo-container {
+  margin-right: 12px;
+}
+.google-svg {
+  width: 35px;
+  height: 35px;
+}
+.alredy-have-account-container {
+  font-size: 1.1em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.alredy-have-account-text {
+  margin-right: 15px;
+  color: #8c8c8c;
+}
+
+.alredy-have-account-link {
+  color: #000;
+  font-weight: 600;
+  text-decoration: underline;
+}
+.whats-new-features-container {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-image: url('../images/newFeaturesBG.jpg');
+  display: grid;
+  grid-template-rows: auto max-content;
+  align-items: center;
+  align-content: center;
+  padding: 50px 5vw;
+  grid-row-gap: 40px;
+}
+.new-feature-container {
+  height: 100%;
+  width: 100%;
+  grid-template-columns: max-content auto;
+  align-items: end;
+  display: none;
+}
+.new-feature-container.active {
+  display: grid;
+}
+
+.new-feauture-img-container {
+  width: 275px;
+  height: 500px;
+  border-radius: 30px;
+  border: 13px solid #fff;
+  background-color: #fff;
+  box-shadow: 0px 2px 5px #000;
+  overflow: hidden;
+}
+.new-feauture-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  background-color: #fff;
+  display: none;
+  opacity: 0;
+  transition: 3s all;
+}
+.new-feauture-img.active,
+.new-feauture-para.active,
+.new-feauture-heading.active {
+  display: block;
+}
+.new-feauture-img.active.opacity {
+  opacity: 1;
+}
+
+.new-feauture-details {
+  padding: 0px 0px 35px 35px;
+  display: grid;
+  grid-row-gap: 20px;
+}
+.whats-new {
+  background-color: rgba(255, 255, 255, 0.3);
+  padding: 8px;
+  width: fit-content;
+  border-radius: 100px;
+  text-transform: uppercase;
+  color: #fff;
+  text-shadow: 0px 0px 3px #511103;
+  border: 1px solid #fff;
+}
+.new-feauture-heading {
+  font-size: 26px;
+  color: #fff;
+  margin: 0;
+  font-family: 'InterMedium';
+  font-weight: 500;
+  display: none;
+  text-shadow: 0px 0px 5px #511103;
+  transition: 3s all;
+}
+.new-feauture-para {
+  color: #fff;
+  transition: 3s all;
+  margin: 0;
+  height: 50px;
+  font-size: 15.32px;
+  text-shadow: 0px 0px 5px #511103;
+  display: none;
+}
+
+.feauture-hbox-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.hbox {
+  width: 40px;
+  height: 5px;
+  border-radius: 100px;
+  background-color: #b3b3b3;
+  box-shadow: 0px 1px 3px #000;
+  margin-right: 10px;
+}
+.hbox.active {
+  background-color: #fff;
+}
+
+.loader-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 999;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.loader-wrapper {
+  padding: 10px;
+  border-radius: 5.4px;
+  background-color: rgb(179, 179, 179, 0.5);
+}
+.loader {
+  width: 30px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  border: 5px solid #b3b3b3;
+  border-right-color: #f24822;
+  animation: l2 1s infinite linear;
+}
+@keyframes l2 {
+  to {
+    transform: rotate(1turn);
+  }
+}
+
+@media screen and (max-width: 1090px) {
+  .sign-up-grid-container {
+    grid-template-columns: 45% 55%;
+  }
+  .new-feature-container {
+    grid-template-columns: auto;
+    justify-items: center;
+  }
+  .example-container,
+  .whats-new-features-container {
+    padding: 80px 20px;
+  }
+
+  .new-feauture-img-container {
+    height: 400px;
+    width: 230px;
+  }
+  .new-feauture-details {
+    padding: 25px 0px 0px 0px;
+    justify-items: center;
+  }
+  .sign-up-main-title,
+  .new-feauture-heading {
+    font-size: 1.5rem;
+  }
+  .new-feauture-heading,
+  .new-feauture-para {
+    width: 100%;
+    text-align: center;
+  }
+  .new-feauture-para {
+    height: auto;
+  }
+  .hbox {
+    width: 30px;
+  }
+}
+@media screen and (max-width: 760px) {
+  body {
+    font-size: 10px;
+  }
+  .sign-up-main-title,
+  .new-feauture-heading {
+    font-size: 1.2rem;
+  }
+}
+
+@media screen and (max-width: 580px) {
+  body {
+    font-size: 14px !important;
+  }
+  .sign-up-grid-container {
+    grid-template-columns: 100%;
+  }
+  .example-container,
+  .whats-new-features-container {
+    padding: 80px 20px;
+  }
+  .sign-up-main-title,
+  .new-feauture-heading {
+    font-size: 26px;
+  }
+}
+
+@media screen and (max-width: 255px) {
+  .sign-up-container {
+    overflow-x: auto;
+  }
+  .new-feauture-img-container {
+    width: 100%;
+    height: 100%;
+  }
+}
